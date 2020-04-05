@@ -1,5 +1,6 @@
 package com.example.groceryrouter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,18 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_APPEND);
-        warehouseCoordinatesString = sh.getString("whcs", "");
-        try {
-            deliveryCoordinatesList = (ArrayList<String>) ObjectSerializer.deserialize(sh.getString("dcl", ""));
-            deliveryAgentsList = (ArrayList<String>) ObjectSerializer.deserialize(sh.getString("dal", ""));
-        }catch(Exception ignored){}
-
-        flag1 = sh.getBoolean("f1", false);
-        flag2 = sh.getBoolean("f2", false);
-        flag3 = sh.getBoolean("f3", false);
-
+        restore();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         try{
@@ -63,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Button warehouseCoordinateButton = findViewById(R.id.warehouseLoc_main);
         warehouseCoordinateButton.setOnClickListener(view -> {
             Intent warehouseCoordinatedIntent = new Intent(MainActivity.this, CoordinateWarehouseActivity.class);
+            save();
             startActivity(warehouseCoordinatedIntent);
         });
 
@@ -70,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         deliveryCoordinatesButton.setOnClickListener(view -> {
             Intent deliveryCoordinatesIntent = new Intent(MainActivity.this, CoordinateInputActivity.class);
             deliveryCoordinatesIntent.putExtra("deliveryCoordinates", new ArrayList<String>());
+            save();
             startActivity(deliveryCoordinatesIntent);
         });
 
@@ -77,17 +69,19 @@ public class MainActivity extends AppCompatActivity {
         deliveryAgentsButton.setOnClickListener(view -> {
             Intent deliveryAgentsIntent = new Intent(MainActivity.this, DeliveryAgentActivity.class);
             deliveryAgentsIntent.putExtra("deliveryAgents", new ArrayList<String>());
+            save();
             startActivity(deliveryAgentsIntent);
         });
 
         Button calculateRouteButton = findViewById(R.id.calculate_main);
         calculateRouteButton.setOnClickListener(view -> {
-            if(this.flag1 && this.flag2 && this.flag3)
+            if(this.flag1==true && this.flag2==true && this.flag3==true)
             {
                 Intent outputIntent = new Intent(MainActivity.this, TSPOutputActivity.class);
                 outputIntent.putExtra("warehouseCoordinates", this.warehouseCoordinatesString);
                 outputIntent.putExtra("deliveryCoordinates", this.deliveryCoordinatesList);
                 outputIntent.putExtra("deliveryAgents", this.deliveryAgentsList);
+                save();
                 startActivity(outputIntent);
             }
             else
@@ -99,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onPause()
+
+    protected void save()
     {
         super.onPause();
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
@@ -112,6 +106,20 @@ public class MainActivity extends AppCompatActivity {
         myEdit.putBoolean("f2", flag2);
         myEdit.putBoolean("f3", flag3);
         myEdit.commit();
+    }
+
+    protected void restore()
+    {
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        warehouseCoordinatesString = sh.getString("whcs", "");
+        try {
+            deliveryCoordinatesList = (ArrayList<String>) ObjectSerializer.deserialize(sh.getString("dcl", ""));
+            deliveryAgentsList = (ArrayList<String>) ObjectSerializer.deserialize(sh.getString("dal", ""));
+        }catch(Exception ignored){}
+
+        flag1 = sh.getBoolean("f1", false);
+        flag2 = sh.getBoolean("f2", false);
+        flag3 = sh.getBoolean("f3", false);
     }
 
 }
