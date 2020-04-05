@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Grocery Router</string>
+    <string name="userLoc">Set Your Location (Warehouse)</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="nextCoordinate">Next Coordinate</string>
+    <string name="deliveryLocation">Set Delivery Locations</string>
+    <string name="done">Done</string>
+    <string name="demand">Demand (in kgs)</string>
+    <string name="capacity">Capacity (in kgs)</string>
+    <string name="next_agent">Next Agent</string>
+    <string name="deliveryAgents">Delivery Agents</string>
+    <string name="calculate">Calculate Routes</string>
+</resources>
