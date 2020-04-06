@@ -1,6 +1,5 @@
 package com.example.groceryrouter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +7,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean flag1 = false;
     private boolean flag2 = false;
     private boolean flag3 = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button calculateRouteButton = findViewById(R.id.calculate_main);
         calculateRouteButton.setOnClickListener(view -> {
-            if(this.flag1==true && this.flag2==true && this.flag3==true)
+            if(this.flag1 && this.flag2 && this.flag3)
             {
                 Intent outputIntent = new Intent(MainActivity.this, TSPOutputActivity.class);
                 outputIntent.putExtra("warehouseCoordinates", this.warehouseCoordinatesString);
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         });
-
     }
 
 
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         myEdit.putBoolean("f1", flag1);
         myEdit.putBoolean("f2", flag2);
         myEdit.putBoolean("f3", flag3);
-        myEdit.commit();
+        myEdit.apply();
     }
 
     protected void restore()

@@ -18,14 +18,14 @@ public class CoordinateInputActivity extends AppCompatActivity {
     EditText field1;
     EditText field2;
     EditText field3;
-    Button nextCoordinate, done;
+    Button nextCoordinate, done, importFromExcelButton;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coordinate_input);
 
-        field1 = findViewById(R.id.latitude_coordiante_input);
+        field1 = findViewById(R.id.latitude_coordinate_input);
         field2 = findViewById(R.id.longitude_coordinate_input);
         field3 = findViewById(R.id.demand_coordinate_input);
         nextCoordinate = findViewById(R.id.nextCoordinate_coordinate_input);
@@ -44,7 +44,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
                 ArrayList<String> deliveryCoordinates = Objects.requireNonNull(getIntent().getExtras()).getStringArrayList("deliveryCoordinates");
                 Intent  intent = new Intent(CoordinateInputActivity.this, CoordinateInputActivity.class);
                 assert deliveryCoordinates != null;
-                deliveryCoordinates.add(String.join(Latitude," ", Longitude));
+                deliveryCoordinates.add(String.join(" ", Latitude, Longitude));
                 intent.putExtra("deliveryCoordinates", deliveryCoordinates);
                 startActivity(intent);
             }
@@ -63,10 +63,18 @@ public class CoordinateInputActivity extends AppCompatActivity {
                 ArrayList<String> deliveryCoordinates = Objects.requireNonNull(getIntent().getExtras()).getStringArrayList("deliveryCoordinates");
                 Intent  intent = new Intent(CoordinateInputActivity.this, MainActivity.class);
                 assert deliveryCoordinates != null;
-                deliveryCoordinates.add(String.join(Latitude," ", Longitude));
+                deliveryCoordinates.add(String.join(" ",Latitude,Longitude,Demand));
                 intent.putExtra("deliveryCoordinates", deliveryCoordinates);
                 startActivity(intent);
             }
         });
+
+        importFromExcelButton = findViewById(R.id.import_excel_coordinate_input);
+        importFromExcelButton.setOnClickListener(view -> {
+            Intent uploadExcelIntent = new Intent(CoordinateInputActivity.this,UploadExcelActivity.class);
+            startActivity(uploadExcelIntent);
+
+        });
+
     }
 }

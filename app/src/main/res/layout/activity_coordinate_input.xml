@@ -20,7 +20,7 @@
             android:text="Enter the Coordinates" />
 
         <EditText
-            android:id="@+id/latitude_coordiante_input"
+            android:id="@+id/latitude_coordinate_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -53,6 +53,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/done" />
+        <Button
+            android:id="@+id/import_excel_coordinate_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/import_excel" />
 
     </LinearLayout>
 

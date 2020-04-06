@@ -11,4 +11,9 @@
     <string name="next_agent">Next Agent</string>
     <string name="deliveryAgents">Delivery Agents</string>
     <string name="calculate">Calculate Routes</string>
+    <string name="import_excel">Import from Excel</string>
+    <string name="title_activity_list_view">ListViewActivity</string>
+    <string name="upload">Upload</string>
+
+
 </resources>

@@ -15,7 +15,7 @@ public class DeliveryAgentActivity extends AppCompatActivity {
 
     String Capacity;
     EditText field1;
-    Button nextAgentButton, enteredAgentsDataButton;
+    Button nextAgentButton, enteredAgentsDataButton, importFromExcelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +57,11 @@ public class DeliveryAgentActivity extends AppCompatActivity {
                 intent.putExtra("deliveryAgents", deliveryAgents);
                 startActivity(intent);
             }
+        });
+        importFromExcelButton = findViewById(R.id.import_excel_agent_delivery);
+        importFromExcelButton.setOnClickListener(view -> {
+            Intent uploadExcelIntent = new Intent(DeliveryAgentActivity.this,UploadExcelActivity.class);
+            startActivity(uploadExcelIntent);
         });
     }
 }
