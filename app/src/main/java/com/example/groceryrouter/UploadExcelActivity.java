@@ -73,21 +73,23 @@ public class UploadExcelActivity extends AppCompatActivity {
             }
         });
 
-        upload.setOnClickListener(view -> {
+        back.setOnClickListener(view -> {
             if(count == 0)
             {
-
+                Log.d(TAG, "Back: You have reached the highest level directory");
             }else{
                 pathHistory.remove(count);
                 count --;
                 checkInternalStorage();
+                Log.d(TAG, "Back: "+pathHistory.get(count));
             }
         });
 
-        back.setOnClickListener(view -> {
+        upload.setOnClickListener(view -> {
             count = 0;
             pathHistory = new ArrayList<>();
             pathHistory.add(count, System.getenv("EXTERNAL_STORAGE"));
+            Log.d(TAG, "Upload:"+pathHistory.get(count));
             checkInternalStorage();
         });
     }

@@ -14,14 +14,14 @@
         android:layout_marginLeft="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/upload_upload_activity"
+        android:id="@+id/back_upload_activity"
         android:text="Back"/>
 
     <Button
         android:layout_marginRight="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/back_upload_activity"
+        android:id="@+id/upload_upload_activity"
         android:text="@string/upload"
         android:layout_alignParentRight="true"/>
     </RelativeLayout>
