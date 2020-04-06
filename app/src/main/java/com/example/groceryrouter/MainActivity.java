@@ -3,6 +3,7 @@ package com.example.groceryrouter;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -23,60 +24,70 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        restore();
+
         Intent intent = getIntent();
+
         Bundle bundle = intent.getExtras();
-        if(!this.flag1) {
-            try {
-                String warehouseCoordinates_temp = bundle.getString("warehouseCoordinates");
-                if (!warehouseCoordinates_temp.equals("")) {
-                    this.warehouseCoordinatesString = warehouseCoordinates_temp;
-                    this.flag1 = true;
-                }
-            } catch (Exception ignored) {
-            }
-        }
-        if(!this.flag2) {
-            try {
-                ArrayList<String> deliveryCoordinates_temp = bundle.getStringArrayList("deliveryCoordinates");
-                if (!deliveryCoordinates_temp.isEmpty()) {
-                    this.deliveryCoordinatesList = new ArrayList<>(deliveryCoordinates_temp);
-                    this.flag2 = true;
-                }
-            } catch (Exception ignored) {
-            }
-        }
-        if(!this.flag3) {
-            try {
-                ArrayList<String> deliveryAgents_temp = bundle.getStringArrayList("deliveryAgents");
-                if (!deliveryAgents_temp.isEmpty()) {
-                    this.deliveryAgentsList = new ArrayList<>(deliveryAgents_temp);
-                    this.flag3 = true;
-                }
-            } catch (Exception ignored) {
+        if(bundle!=null) {
+            boolean isNotStart = bundle.getBoolean("isNotStart");
+            if(isNotStart) {
+                Log.d("Coming Here", "Coming Here");
+                restore();
             }
         }
 
+
+        try {
+            String warehouseCoordinates_temp = bundle.getString("warehouseCoordinates");
+            if (!warehouseCoordinates_temp.equals("")) {
+                this.warehouseCoordinatesString = warehouseCoordinates_temp;
+                this.flag1 = true;
+                Toast toast = Toast.makeText(getApplicationContext(),"Warehouse Coordinates Registered", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        } catch (Exception ignored) {}
+
+        try {
+            ArrayList<String> deliveryCoordinates_temp = bundle.getStringArrayList("deliveryCoordinates");
+            if (!deliveryCoordinates_temp.isEmpty()) {
+                this.deliveryCoordinatesList = new ArrayList<>(deliveryCoordinates_temp);
+                this.flag2 = true;
+                Toast toast = Toast.makeText(getApplicationContext(),"Delivery Coordinates Registered", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        } catch (Exception ignored) {}
+
+
+        try {
+            ArrayList<String> deliveryAgents_temp = bundle.getStringArrayList("deliveryAgents");
+            if (!deliveryAgents_temp.isEmpty()) {
+                this.deliveryAgentsList = new ArrayList<>(deliveryAgents_temp);
+                this.flag3 = true;
+                Toast toast = Toast.makeText(getApplicationContext(),"Agent Capacities Registered", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        } catch (Exception ignored) {}
+
         Button warehouseCoordinateButton = findViewById(R.id.warehouseLoc_main);
         warehouseCoordinateButton.setOnClickListener(view -> {
-            Intent warehouseCoordinatedIntent = new Intent(MainActivity.this, CoordinateWarehouseActivity.class);
             save();
+            Intent warehouseCoordinatedIntent = new Intent(MainActivity.this, CoordinateWarehouseActivity.class);
             startActivity(warehouseCoordinatedIntent);
         });
 
         Button deliveryCoordinatesButton = findViewById(R.id.deliveryLoc_main);
         deliveryCoordinatesButton.setOnClickListener(view -> {
+            save();
             Intent deliveryCoordinatesIntent = new Intent(MainActivity.this, CoordinateInputActivity.class);
             deliveryCoordinatesIntent.putExtra("deliveryCoordinates", new ArrayList<String>());
-            save();
             startActivity(deliveryCoordinatesIntent);
         });
 
         Button deliveryAgentsButton = findViewById(R.id.deliveryAgents_main);
         deliveryAgentsButton.setOnClickListener(view -> {
+            save();
             Intent deliveryAgentsIntent = new Intent(MainActivity.this, DeliveryAgentActivity.class);
             deliveryAgentsIntent.putExtra("deliveryAgents", new ArrayList<String>());
-            save();
             startActivity(deliveryAgentsIntent);
         });
 
@@ -97,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+
     }
 
 

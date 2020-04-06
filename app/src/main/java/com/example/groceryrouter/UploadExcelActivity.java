@@ -171,11 +171,22 @@ public class UploadExcelActivity extends AppCompatActivity {
             File[] listFile = file.listFiles();
 
             assert listFile != null;
-            String[] fileNameStrings = new String[listFile.length];
-
+            int counter = 0;
             for(int i = 0; i< listFile.length; i++)
             {
-                fileNameStrings[i] = listFile[i].getName();
+                char start = listFile[i].getName().charAt(0);
+                if(start != '.')
+                    counter+=1;
+            }
+            String[] fileNameStrings = new String[counter];
+            counter = 0;
+            for(int i = 0; i< listFile.length; i++)
+            {
+                char start = listFile[i].getName().charAt(0);
+                if(start != '.'){
+                    fileNameStrings[counter] = listFile[i].getName();
+                    counter++;
+                }
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, fileNameStrings);
@@ -193,6 +204,7 @@ public class UploadExcelActivity extends AppCompatActivity {
 
         Intent intent = new Intent(UploadExcelActivity.this, MainActivity.class);
         intent.putExtra("deliveryCoordinates", deliveryCoordinates);
+        intent.putExtra("isNotStart", true);
         startActivity(intent);
     }
     private String getCellAsString(Row row, int c, FormulaEvaluator fe)

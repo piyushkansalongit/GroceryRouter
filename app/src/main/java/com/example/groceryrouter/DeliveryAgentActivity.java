@@ -55,6 +55,7 @@ public class DeliveryAgentActivity extends AppCompatActivity {
                 assert deliveryAgents != null;
                 deliveryAgents.add(Capacity);
                 intent.putExtra("deliveryAgents", deliveryAgents);
+                intent.putExtra("isNotStart", true);
                 startActivity(intent);
             }
         });

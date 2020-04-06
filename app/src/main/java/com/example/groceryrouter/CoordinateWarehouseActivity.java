@@ -37,6 +37,7 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
             else{
                 Intent intent = new Intent(CoordinateWarehouseActivity.this, MainActivity.class);
                 intent.putExtra("warehouseCoordinates",String.join(" ",Latitude, Longitude));
+                intent.putExtra("isNotStart",true);
                 startActivity(intent);
             }
         });

@@ -65,6 +65,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
                 assert deliveryCoordinates != null;
                 deliveryCoordinates.add(String.join(" ",Latitude,Longitude,Demand));
                 intent.putExtra("deliveryCoordinates", deliveryCoordinates);
+                intent.putExtra("isNotStart", true);
                 startActivity(intent);
             }
         });
