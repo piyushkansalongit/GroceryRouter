@@ -61,6 +61,7 @@ public class DeliveryAgentActivity extends AppCompatActivity {
         importFromExcelButton = findViewById(R.id.import_excel_agent_delivery);
         importFromExcelButton.setOnClickListener(view -> {
             Intent uploadExcelIntent = new Intent(DeliveryAgentActivity.this,UploadExcelActivity.class);
+            uploadExcelIntent.putExtra("c_max","1");
             startActivity(uploadExcelIntent);
         });
     }

@@ -72,6 +72,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         importFromExcelButton = findViewById(R.id.import_excel_coordinate_input);
         importFromExcelButton.setOnClickListener(view -> {
             Intent uploadExcelIntent = new Intent(CoordinateInputActivity.this,UploadExcelActivity.class);
+            uploadExcelIntent.putExtra("c_max","3");
             startActivity(uploadExcelIntent);
 
         });

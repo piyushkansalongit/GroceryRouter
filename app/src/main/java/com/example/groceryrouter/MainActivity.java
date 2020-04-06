@@ -26,30 +26,36 @@ public class MainActivity extends AppCompatActivity {
         restore();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        try{
-            String warehouseCoordinates_temp = bundle.getString("warehouseCoordinates");
-            if(!warehouseCoordinates_temp.equals(""))
-            {
-                this.warehouseCoordinatesString = warehouseCoordinates_temp;
-                this.flag1 = true;
+        if(!this.flag1) {
+            try {
+                String warehouseCoordinates_temp = bundle.getString("warehouseCoordinates");
+                if (!warehouseCoordinates_temp.equals("")) {
+                    this.warehouseCoordinatesString = warehouseCoordinates_temp;
+                    this.flag1 = true;
+                }
+            } catch (Exception ignored) {
             }
-        }catch(Exception ignored){}
-        try {
-            ArrayList<String> deliveryCoordinates_temp = bundle.getStringArrayList("deliveryCoordinates");
-            if(!deliveryCoordinates_temp.isEmpty())
-            {
-                this.deliveryCoordinatesList = new ArrayList<>(deliveryCoordinates_temp);
-                this.flag2 = true;
+        }
+        if(!this.flag2) {
+            try {
+                ArrayList<String> deliveryCoordinates_temp = bundle.getStringArrayList("deliveryCoordinates");
+                if (!deliveryCoordinates_temp.isEmpty()) {
+                    this.deliveryCoordinatesList = new ArrayList<>(deliveryCoordinates_temp);
+                    this.flag2 = true;
+                }
+            } catch (Exception ignored) {
             }
-        }catch(Exception ignored){}
-        try {
-            ArrayList<String> deliveryAgents_temp = bundle.getStringArrayList("deliveryAgents");
-            if(!deliveryAgents_temp.isEmpty())
-            {
-                this.deliveryAgentsList  = new ArrayList<>(deliveryAgents_temp);
-                this.flag3 = true;
+        }
+        if(!this.flag3) {
+            try {
+                ArrayList<String> deliveryAgents_temp = bundle.getStringArrayList("deliveryAgents");
+                if (!deliveryAgents_temp.isEmpty()) {
+                    this.deliveryAgentsList = new ArrayList<>(deliveryAgents_temp);
+                    this.flag3 = true;
+                }
+            } catch (Exception ignored) {
             }
-        }catch(Exception ignored){}
+        }
 
         Button warehouseCoordinateButton = findViewById(R.id.warehouseLoc_main);
         warehouseCoordinateButton.setOnClickListener(view -> {

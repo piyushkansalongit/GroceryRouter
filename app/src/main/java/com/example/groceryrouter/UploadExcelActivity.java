@@ -30,15 +30,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class UploadExcelActivity extends AppCompatActivity {
 
     private static final String TAG = "UploadExcelActivity"; // Just for logging
 
-    private String[] FilePathStrings;
-    private String[] FileNameStrings;
-    private File[] listFile;
     File file;
     Button upload, back;
     ArrayList<String> pathHistory;
@@ -62,9 +60,18 @@ public class UploadExcelActivity extends AppCompatActivity {
         checkFilePermissions();
         lvInternalStorage.setOnItemClickListener((adapterView, view, i, l) -> {
             lastDirectory = pathHistory.get(count);
+            Log.d(TAG, "lastDirectory "+lastDirectory);
+            Log.d(TAG, "lastPathHistory "+adapterView.getItemAtPosition(i));
             if(lastDirectory.equals(adapterView.getItemAtPosition(i))){
                 Log.d(TAG, "lvInternalStorage: Selected a file for upload "+lastDirectory);
-                readExcelData(lastDirectory);
+                StringBuilder path = new StringBuilder();
+                for(int j=0; j<=count; j++)
+                {
+                    path.append("/").append(pathHistory.get(j));
+                }
+                String c_max = Objects.requireNonNull(getIntent().getExtras()).getString("c_max");
+                assert c_max != null;
+                readExcelData(path.toString(), Integer.parseInt(c_max));
             }else{
                 count++;
                 pathHistory.add(count, (String) adapterView.getItemAtPosition(i));
@@ -108,7 +115,7 @@ public class UploadExcelActivity extends AppCompatActivity {
             }
         }
     }
-    private void readExcelData(String filePath)
+    private void readExcelData(String filePath, int c_max)
     {
         Log.d(TAG, "read excel data: Reading Excel File.");
 
@@ -125,15 +132,15 @@ public class UploadExcelActivity extends AppCompatActivity {
             {
                 Row row = sheet.getRow(r);
                 int cellsCount = row.getPhysicalNumberOfCells();
+                if(cellsCount!=c_max)
+                {
+                    toastMessage("Excel File format is not correct");
+                    break;
+                }
                 for(int c=0; c<cellsCount; c++)
                 {
-                    if(c>2){
-                        toastMessage("ERROR: Excel File Format is Incorrect");
-                        break;
-                    }else{
-                        String value = getCellAsString(row, c, fe);
-                        sb.append(value+" ");
-                    }
+                    String value = getCellAsString(row, c, fe);
+                    sb.append(value).append(" ");
                 }
                 sb.append(":");
             }
@@ -153,22 +160,25 @@ public class UploadExcelActivity extends AppCompatActivity {
                 toastMessage("No SD Card Found");
             }
             else{
-                file = new File(pathHistory.get(count));
+                StringBuilder path = new StringBuilder();
+                for(int i=0; i<=count; i++)
+                {
+                    path.append("/").append(pathHistory.get(i));
+                }
+                file = new File(path.toString());
                 Log.d(TAG, "checkInternalStorage: directory path: "+pathHistory.get(count));
             }
-            listFile = file.listFiles();
+            File[] listFile = file.listFiles();
 
             assert listFile != null;
-            FilePathStrings  = new String[listFile.length];
-            FileNameStrings = new String[listFile.length];
+            String[] fileNameStrings = new String[listFile.length];
 
-            for(int i=0; i<listFile.length; i++)
+            for(int i = 0; i< listFile.length; i++)
             {
-                FilePathStrings[i] = listFile[i].getAbsolutePath();
-                FileNameStrings[i] = listFile[i].getName();
+                fileNameStrings[i] = listFile[i].getName();
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, FilePathStrings);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, fileNameStrings);
             lvInternalStorage.setAdapter(adapter);
 
         }catch(NullPointerException e)
@@ -179,8 +189,7 @@ public class UploadExcelActivity extends AppCompatActivity {
     private void parseStringBuilder(StringBuilder mStringBuilder)
     {
         String[] rows = mStringBuilder.toString().split("");
-        for(int i=0; i<rows.length; i++)
-            deliveryCoordinates.add(rows[i]);
+        deliveryCoordinates.addAll(Arrays.asList(rows));
 
         Intent intent = new Intent(UploadExcelActivity.this, MainActivity.class);
         intent.putExtra("deliveryCoordinates", deliveryCoordinates);
