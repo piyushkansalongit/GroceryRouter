@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FEDBD0"
     tools:context=".TSPOutputActivity">
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,6 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/warehouse_coordinates"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/warehouse_coordinates_list"/>
     <TextView
         android:id="@+id/delivery_loc_heading_tsp_output"
         android:layout_width="wrap_content"
@@ -29,8 +34,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/delivery_coordinates_list"
-        />
+        android:id="@+id/delivery_coordinates_list"/>
     <TextView
         android:id="@+id/delivery_agents_heading_tsp_output"
         android:layout_width="wrap_content"
@@ -39,6 +43,6 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/delivery_agents_list" />
+        android:id="@+id/delivery_agents_list"/>
     </LinearLayout>
 </RelativeLayout>

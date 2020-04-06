@@ -26,7 +26,7 @@ public class DeliveryAgentActivity extends AppCompatActivity {
 
         nextAgentButton.setOnClickListener(view -> {
 
-            Capacity = field1.getText().toString();
+            Capacity = Double.valueOf(field1.getText().toString()).toString();
             if(Capacity.equals(""))
             {
                 Toast toast = Toast.makeText(getApplicationContext(),"Please fill the field", Toast.LENGTH_SHORT);
@@ -43,7 +43,7 @@ public class DeliveryAgentActivity extends AppCompatActivity {
         });
         enteredAgentsDataButton.setOnClickListener(view->{
 
-            Capacity = field1.getText().toString();
+            Capacity = Double.valueOf(field1.getText().toString()).toString();
             if(Capacity.equals(""))
             {
                 Toast toast = Toast.makeText(getApplicationContext(),"Please fill the field", Toast.LENGTH_SHORT);

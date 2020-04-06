@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FEDBD0"
     tools:context=".CoordinateInputActivity">
 
     <LinearLayout
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="180dp">
 
         <TextView
             android:id="@+id/heading_coordinate_input"

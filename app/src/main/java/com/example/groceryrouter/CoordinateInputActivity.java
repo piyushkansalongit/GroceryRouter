@@ -32,9 +32,9 @@ public class CoordinateInputActivity extends AppCompatActivity {
         done = findViewById(R.id.done_coordinate_input);
         nextCoordinate.setOnClickListener(view -> {
 
-            Latitude = field1.getText().toString();
-            Longitude = field2.getText().toString();
-            Demand = field3.getText().toString();
+            Latitude = Double.valueOf(field1.getText().toString()).toString();
+            Longitude = Double.valueOf(field2.getText().toString()).toString();
+            Demand = Double.valueOf(field3.getText().toString()).toString();
             if(Latitude.equals("") || Longitude.equals("") || Demand.equals(""))
             {
                 Toast toast = Toast.makeText(getApplicationContext(),"Please fill all the fields", Toast.LENGTH_SHORT);
@@ -51,9 +51,9 @@ public class CoordinateInputActivity extends AppCompatActivity {
         });
 
         done.setOnClickListener(view -> {
-            Latitude = field1.getText().toString();
-            Longitude = field2.getText().toString();
-            Demand = field3.getText().toString();
+            Latitude = Double.valueOf(field1.getText().toString()).toString();
+            Longitude = Double.valueOf(field2.getText().toString()).toString();
+            Demand = Double.valueOf(field3.getText().toString()).toString();
             if(Latitude.equals("") || Longitude.equals("") || Demand.equals(""))
             {
                 Toast toast = Toast.makeText(getApplicationContext(),"Please fill all the fields", Toast.LENGTH_SHORT);
