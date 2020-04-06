@@ -26,14 +26,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-
         Bundle bundle = intent.getExtras();
         if(bundle!=null) {
             boolean isNotStart = bundle.getBoolean("isNotStart");
-            if(isNotStart) {
+            if(isNotStart){
                 Log.d("Coming Here", "Coming Here");
                 restore();
             }
+            else{
+                Log.d("Not Coming Here", "Not Coming Here");
+                save();
+            }
+        }
+        else{
+            Log.d("Not Coming Here", "Not Coming Here");
+            save();
         }
 
 
@@ -94,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         Button calculateRouteButton = findViewById(R.id.calculate_main);
         calculateRouteButton.setOnClickListener(view -> {
             restore();
+
             if(this.flag1 && this.flag2 && this.flag3)
             {
                 Intent outputIntent = new Intent(MainActivity.this, TSPOutputActivity.class);

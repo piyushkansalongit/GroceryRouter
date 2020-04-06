@@ -44,7 +44,7 @@ public class UploadExcelActivity extends AppCompatActivity {
     int count = 0;
 
 
-    ArrayList<String> deliveryCoordinates;
+    ArrayList<String> Coordinates;
     ListView lvInternalStorage;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -55,7 +55,7 @@ public class UploadExcelActivity extends AppCompatActivity {
         lvInternalStorage =  findViewById(R.id.lvInternalStorage);
         upload = findViewById(R.id.upload_upload_activity);
         back = findViewById(R.id.back_upload_activity);
-        deliveryCoordinates = new ArrayList<>();
+        Coordinates = new ArrayList<>();
 
         checkFilePermissions();
         lvInternalStorage.setOnItemClickListener((adapterView, view, i, l) -> {
@@ -128,10 +128,12 @@ public class UploadExcelActivity extends AppCompatActivity {
             int rowsCount = sheet.getPhysicalNumberOfRows();
             StringBuilder sb = new StringBuilder();
             FormulaEvaluator fe = workbook.getCreationHelper().createFormulaEvaluator();
+            Log.d("rowsCount", String.valueOf(rowsCount));
             for(int r=1; r<rowsCount; r++)
             {
                 Row row = sheet.getRow(r);
                 int cellsCount = row.getPhysicalNumberOfCells();
+                Log.d("cellsCount", String.valueOf(cellsCount));
                 if(cellsCount!=c_max)
                 {
                     toastMessage("Excel File format is not correct");
@@ -140,11 +142,13 @@ public class UploadExcelActivity extends AppCompatActivity {
                 for(int c=0; c<cellsCount; c++)
                 {
                     String value = getCellAsString(row, c, fe);
+                    Log.d("value", String.valueOf(value));
                     sb.append(value).append(" ");
                 }
                 sb.append(":");
             }
-            parseStringBuilder(sb);
+            Log.d("Total ", sb.toString());
+            parseStringBuilder(sb, c_max);
         }catch(FileNotFoundException e){
             Log.e(TAG, "readExcelData: FileNotFoundException. " + e.getMessage());
         }catch(IOException e){
@@ -197,13 +201,16 @@ public class UploadExcelActivity extends AppCompatActivity {
             Log.d(TAG, "checkInternalStorage: NULL POINTER EXCEPTION "+e.getMessage());
         }
     }
-    private void parseStringBuilder(StringBuilder mStringBuilder)
+    private void parseStringBuilder(StringBuilder mStringBuilder, int c_max)
     {
-        String[] rows = mStringBuilder.toString().split("");
-        deliveryCoordinates.addAll(Arrays.asList(rows));
+        String[] rows = mStringBuilder.toString().split(":");
+        Coordinates.addAll(Arrays.asList(rows));
 
         Intent intent = new Intent(UploadExcelActivity.this, MainActivity.class);
-        intent.putExtra("deliveryCoordinates", deliveryCoordinates);
+        if(c_max==3)
+            intent.putExtra("deliveryCoordinates", Coordinates);
+        else
+            intent.putExtra("deliveryAgents", Coordinates);
         intent.putExtra("isNotStart", true);
         startActivity(intent);
     }

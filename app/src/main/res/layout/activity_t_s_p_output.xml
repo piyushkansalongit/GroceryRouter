@@ -10,11 +10,35 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="20dp">
     <TextView
         android:id="@+id/heading_tsp_output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Allocated Routes" />
+        android:text="@string/allocated_routes" />
+    <TextView
+        android:id="@+id/warehouse_loc_heading_tsp_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/warehouse_coordinates"/>
+    <TextView
+        android:id="@+id/delivery_loc_heading_tsp_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delivery_coordinates"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delivery_coordinates_list"
+        />
+    <TextView
+        android:id="@+id/delivery_agents_heading_tsp_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delivery_agents"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delivery_agents_list" />
     </LinearLayout>
 </RelativeLayout>

@@ -14,6 +14,8 @@
     <string name="import_excel">Import from Excel</string>
     <string name="title_activity_list_view">ListViewActivity</string>
     <string name="upload">Upload</string>
-
-
+    <string name="allocated_routes">Allocated Routes</string>
+    <string name="warehouse_coordinates">Warehouse Coordinates</string>
+    <string name="delivery_coordinates">Delivery Coordinates</string>
+    <string name="delivery_agents">Delivery Agents</string>
 </resources>
