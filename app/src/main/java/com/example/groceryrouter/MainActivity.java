@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 this.flag1 = true;
                 Toast toast = Toast.makeText(getApplicationContext(),"Warehouse Coordinates Registered", Toast.LENGTH_SHORT);
                 toast.show();
+                save();
             }
         } catch (Exception ignored) {}
 
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 this.flag2 = true;
                 Toast toast = Toast.makeText(getApplicationContext(),"Delivery Coordinates Registered", Toast.LENGTH_SHORT);
                 toast.show();
+                save();
             }
         } catch (Exception ignored) {}
 
@@ -65,19 +67,18 @@ public class MainActivity extends AppCompatActivity {
                 this.flag3 = true;
                 Toast toast = Toast.makeText(getApplicationContext(),"Agent Capacities Registered", Toast.LENGTH_SHORT);
                 toast.show();
+                save();
             }
         } catch (Exception ignored) {}
 
         Button warehouseCoordinateButton = findViewById(R.id.warehouseLoc_main);
         warehouseCoordinateButton.setOnClickListener(view -> {
-            save();
             Intent warehouseCoordinatedIntent = new Intent(MainActivity.this, CoordinateWarehouseActivity.class);
             startActivity(warehouseCoordinatedIntent);
         });
 
         Button deliveryCoordinatesButton = findViewById(R.id.deliveryLoc_main);
         deliveryCoordinatesButton.setOnClickListener(view -> {
-            save();
             Intent deliveryCoordinatesIntent = new Intent(MainActivity.this, CoordinateInputActivity.class);
             deliveryCoordinatesIntent.putExtra("deliveryCoordinates", new ArrayList<String>());
             startActivity(deliveryCoordinatesIntent);
@@ -85,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
         Button deliveryAgentsButton = findViewById(R.id.deliveryAgents_main);
         deliveryAgentsButton.setOnClickListener(view -> {
-            save();
             Intent deliveryAgentsIntent = new Intent(MainActivity.this, DeliveryAgentActivity.class);
             deliveryAgentsIntent.putExtra("deliveryAgents", new ArrayList<String>());
             startActivity(deliveryAgentsIntent);
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button calculateRouteButton = findViewById(R.id.calculate_main);
         calculateRouteButton.setOnClickListener(view -> {
+            restore();
             if(this.flag1 && this.flag2 && this.flag3)
             {
                 Intent outputIntent = new Intent(MainActivity.this, TSPOutputActivity.class);
