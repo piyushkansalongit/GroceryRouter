@@ -15,24 +15,56 @@
         android:layout_marginTop="180dp">
         <TextView
             android:id="@+id/heading_agent_delivery"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Agent Capacity" />
 
         <EditText
             android:id="@+id/capacity_agent_delivery"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/capacity"
             android:inputType="number" />
-
-        <Button
-            android:id="@+id/nextAgent_agent_delivery"
+        <EditText
+            android:id="@+id/id_agent_delivery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/next_agent" />
+            android:ems="10"
+            android:hint="@string/updateOrDelete"
+            android:inputType="number"/>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/add_agent_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/update_agent_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/delete_agent_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/view_agent_delivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view" />
         <Button
             android:id="@+id/done_agent_delivery"
             android:layout_width="match_parent"

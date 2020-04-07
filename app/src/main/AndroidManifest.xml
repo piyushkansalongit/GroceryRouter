@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UploadExcelActivity"></activity>
+        <activity android:name=".UploadExcelActivity" />
         <activity android:name=".DeliveryAgentActivity" />
         <activity android:name=".CoordinateWarehouseActivity" />
         <activity android:name=".TSPOutputActivity" />

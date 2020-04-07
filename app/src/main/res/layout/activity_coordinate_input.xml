@@ -16,13 +16,13 @@
 
         <TextView
             android:id="@+id/heading_coordinate_input"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enter the Coordinates" />
 
         <EditText
             android:id="@+id/latitude_coordinate_input"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/latitude"
@@ -43,11 +43,45 @@
             android:hint="@string/demand"
             android:inputType="number" />
 
-        <Button
-            android:id="@+id/nextCoordinate_coordinate_input"
+        <EditText
+            android:id="@+id/id_coordinate_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nextCoordinate" />
+            android:ems="10"
+            android:hint="@string/updateOrDelete"
+            android:inputType="number" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/add_coordinate_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/update_coordinate_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/delete_coordinate_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/view_coordinate_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view" />
 
         <Button
             android:id="@+id/done_coordinate_input"

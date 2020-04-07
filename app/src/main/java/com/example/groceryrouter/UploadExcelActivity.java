@@ -42,8 +42,6 @@ public class UploadExcelActivity extends AppCompatActivity {
     ArrayList<String> pathHistory;
     String lastDirectory;
     int count = 0;
-
-
     ArrayList<String> Coordinates;
     ListView lvInternalStorage;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -206,12 +204,24 @@ public class UploadExcelActivity extends AppCompatActivity {
         String[] rows = mStringBuilder.toString().split(":");
         Coordinates.addAll(Arrays.asList(rows));
 
-        Intent intent = new Intent(UploadExcelActivity.this, MainActivity.class);
-        if(c_max==3)
-            intent.putExtra("deliveryCoordinates", Coordinates);
-        else
-            intent.putExtra("deliveryAgents", Coordinates);
-        intent.putExtra("isNotStart", true);
+        Intent intent;
+        if(c_max==3) {
+            DeliveryCoordinatesDB db = MainActivity.deliveryCoordinatesDB;
+            intent = new Intent(UploadExcelActivity.this, CoordinateInputActivity.class);
+            for(int i=0; i<Coordinates.size();i++)
+            {
+                String[] columns = Coordinates.get(i).split(" ");
+                db.addData(columns[0], columns[1], columns[2]);
+            }
+        }
+        else {
+            DeliveryAgentsDB db = MainActivity.deliveryAgentsDB;
+            intent = new Intent(UploadExcelActivity.this, DeliveryAgentActivity.class);
+            for(int i=0; i<Coordinates.size();i++)
+                db.addData(Coordinates.get(i));
+
+        }
+        toastMessage("Data Successfully Imported");
         startActivity(intent);
     }
     private String getCellAsString(Row row, int c, FormulaEvaluator fe)

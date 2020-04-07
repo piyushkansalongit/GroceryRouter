@@ -3,7 +3,9 @@
     <string name="userLoc">Set Warehouse Location</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
-    <string name="nextCoordinate">Next Coordinate</string>
+    <string name="add">Add</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
     <string name="deliveryLocation">Set Delivery Locations</string>
     <string name="done">Done</string>
     <string name="demand">Demand (in kgs)</string>
@@ -18,4 +20,7 @@
     <string name="warehouse_coordinates">Warehouse Coordinates</string>
     <string name="delivery_coordinates">Delivery Coordinates</string>
     <string name="delivery_agents">Delivery Agents</string>
+    <string name="view">View Inputs</string>
+    <string name="updateOrDelete">ID: Update or Delete</string>
+
 </resources>
