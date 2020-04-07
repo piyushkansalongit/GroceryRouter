@@ -22,5 +22,11 @@
     <string name="delivery_agents">Delivery Agents</string>
     <string name="view">View Inputs</string>
     <string name="updateOrDelete">ID: Update or Delete</string>
+    <string name="id_heading">ID</string>
+    <string name="latitude_heading">Latitude</string>
+    <string name="longitude_heading">Longitude</string>
+    <string name="demand_heading">Demand</string>
+    <string name="back">Back</string>
+
 
 </resources>

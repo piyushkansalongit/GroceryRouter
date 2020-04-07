@@ -32,6 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapsActivity" />
+        <activity android:name=".ViewListContent" />
     </application>
 
 </manifest>

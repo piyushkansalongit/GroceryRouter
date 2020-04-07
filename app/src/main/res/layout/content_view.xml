@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:weightSum="100">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    android:layout_weight="5">
+
+    <TextView
+        android:id="@+id/id_heading"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/id_heading"
+        android:layout_weight="13"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/latitude_heading"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/latitude_heading"
+        android:layout_weight="29"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:id="@+id/longitude_heading"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/longitude_heading"
+        android:layout_weight="29"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:id="@+id/demand_heading"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/demand_heading"
+        android:layout_weight="29"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+</LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/listView"
+        android:layout_weight="85"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        />
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="10">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/back_list_view"
+        android:text="@string/back">
+    </Button>
+
+
+</LinearLayout>
+
+</LinearLayout>

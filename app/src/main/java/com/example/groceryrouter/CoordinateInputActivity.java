@@ -128,15 +128,17 @@ public class CoordinateInputActivity extends AppCompatActivity {
             display("Error", "No Data Found");
             return;
         }
-        StringBuffer buffer = new StringBuffer();
-        while(data.moveToNext()){
-            buffer.append("ID: "+data.getString(0) + "\n");
-            buffer.append("Latitude: "+data.getString(1) + "\n");
-            buffer.append("Longitude: "+data.getString(2) + "\n");
-            buffer.append("Demand: "+data.getString(3) + "\n");
-
-        }
-        display("All Stored Data: ", buffer.toString());
+//        StringBuffer buffer = new StringBuffer();
+//        while(data.moveToNext()){
+//            buffer.append("ID: "+data.getString(0) + "\n");
+//            buffer.append("Latitude: "+data.getString(1) + "\n");
+//            buffer.append("Longitude: "+data.getString(2) + "\n");
+//            buffer.append("Demand: "+data.getString(3) + "\n");
+//
+//        }
+//        display("All Stored Data: ", buffer.toString());
+        Intent displayIntent = new Intent(CoordinateInputActivity.this, ViewListContent.class);
+        startActivity(displayIntent);
     }
 
     private void doneHandle()
