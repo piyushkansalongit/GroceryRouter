@@ -61,17 +61,17 @@ public class CoordinateInputActivity extends AppCompatActivity {
     }
 
     private void addHandle(){
-        try{
-            Latitude = field1.getText().toString();
-            Longitude = field2.getText().toString();
-            Demand = field3.getText().toString();
+        Latitude = field1.getText().toString();
+        Longitude = field2.getText().toString();
+        Demand = field3.getText().toString();
+        if(Latitude.equals("") || Longitude.equals("") || Demand.equals(""))
+            toastMessage("Please fill all the fields correctly");
+        else{
             boolean retFlag = db.addData(Latitude, Longitude, Demand);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
             else
                 toastMessage("Data Successfully inserted.");
-        }catch(Exception e){
-            toastMessage("Please fill all the fields correctly");
         }
         field1.setText("");
         field2.setText("");
@@ -84,7 +84,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         Longitude = field2.getText().toString();
         Demand = field3.getText().toString();
         ID = field4.getText().toString();
-        if(Latitude == null || Longitude == null || Demand==null)
+        if(Latitude.equals("") || Longitude.equals("") || Demand.equals(""))
             toastMessage("Please fill all the fields correctly");
         else if(ID==null)
             toastMessage("You must enter an ID to update");
@@ -104,7 +104,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
 
     private void deleteHandle(){
         ID = field4.getText().toString();
-        if(ID==null)
+        if(ID.equals(""))
             toastMessage("Please enter an ID to delete");
         else{
             Integer retFlag = db.deleteData(ID);

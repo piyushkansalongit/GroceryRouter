@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,8 +51,8 @@ public class DeliveryAgentActivity extends AppCompatActivity {
 
     private void addHandle(){
         Capacity = field1.getText().toString();
-        ID = field1.getText().toString();
-        if(Capacity==null)
+        ID = field2.getText().toString();
+        if(Capacity.equals(""))
             toastMessage("Please fill all the fields correctly");
         else{
             boolean retFlag = db.addData(Capacity);
@@ -67,10 +68,10 @@ public class DeliveryAgentActivity extends AppCompatActivity {
 
     private void updateHandle(){
         Capacity = field1.getText().toString();
-        ID = field1.getText().toString();
-        if(Capacity==null)
+        ID = field2.getText().toString();
+        if(Capacity.equals(""))
             toastMessage("Please fill all the fields correctly");
-        else if(ID==null)
+        else if(ID.equals(""))
             toastMessage("You must enter an ID to update");
         else{
             boolean retFlag = db.updateData(ID, Capacity);
@@ -86,9 +87,11 @@ public class DeliveryAgentActivity extends AppCompatActivity {
 
     private void deleteHandle(){
         Capacity = field1.getText().toString();
-        ID = field1.getText().toString();
-        if(ID==null)
+        ID = field2.getText().toString();
+        if(ID.equals("")) {
+            Log.d("IDDDDDD", "HGKHGKK");
             toastMessage("Please enter an ID to delete");
+        }
         else{
             Integer retFlag = db.deleteData(ID);
             if(retFlag > 0)

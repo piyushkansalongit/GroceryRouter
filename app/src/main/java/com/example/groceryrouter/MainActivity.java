@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(warehouseCoordinatedIntent);
     }
     private void deliveryCoordinatesHandle(){
-        Log.d("Destroy", "Destroy");
         deliveryCoordinatesDB.deleteAll();
         Intent deliveryCoordinatesIntent = new Intent(MainActivity.this, CoordinateInputActivity.class);
         startActivity(deliveryCoordinatesIntent);
     }
     private void deliveryAgentsHandle(){
+        deliveryAgentsDB.deleteAll();
         Intent deliveryAgentsIntent = new Intent(MainActivity.this, DeliveryAgentActivity.class);
         startActivity(deliveryAgentsIntent);
     }

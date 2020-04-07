@@ -27,8 +27,8 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
         field2 = findViewById(R.id.longitude_coordinate_warehouse);
         done = findViewById(R.id.done_coordinate_warehouse);
         done.setOnClickListener(view -> {
-            Latitude = Double.valueOf(field1.getText().toString()).toString();
-            Longitude = Double.valueOf(field2.getText().toString()).toString();
+            Latitude = field1.getText().toString();
+            Longitude = field2.getText().toString();
             if(Latitude.equals("") || Longitude.equals(""))
             {
                 Toast toast = Toast.makeText(getApplicationContext(),"Please fill all the fields", Toast.LENGTH_SHORT);
@@ -37,7 +37,6 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
             else{
                 Intent intent = new Intent(CoordinateWarehouseActivity.this, MainActivity.class);
                 intent.putExtra("warehouseCoordinates",String.join(" ",Latitude, Longitude));
-                intent.putExtra("isNotStart",true);
                 startActivity(intent);
             }
         });
