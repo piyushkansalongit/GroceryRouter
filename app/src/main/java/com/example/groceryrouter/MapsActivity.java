@@ -2,6 +2,7 @@ package com.example.groceryrouter;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,15 +17,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private double dLatitude = 0.0;
     private double dLongitude = 0.0;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        dLatitude = bundle.getDouble("LATITUDE");
-        dLongitude = bundle.getDouble("LONGITUDE");
 
         SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -38,4 +35,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(latlng).title("currentPos"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
     }
+
 }

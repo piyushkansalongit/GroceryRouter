@@ -23,7 +23,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
     EditText field2;
     EditText field3;
     EditText field4;
-    Button addCoordinate, updateCoordinate, deleteCoordinate, viewInputs, done, importFromExcelButton;
+    Button addCoordinate, updateCoordinate, deleteCoordinate, viewInputs, done, googleMap, importFromExcelButton;
     DeliveryCoordinatesDB db;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -49,6 +49,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         viewInputs = findViewById(R.id.view_coordinate_input);
         done = findViewById(R.id.done_coordinate_input);
         importFromExcelButton = findViewById(R.id.import_excel_coordinate_input);
+        googleMap = findViewById(R.id.import_from_google_maps_coordinate_input);
 
         // OnClickListeners
         addCoordinate.setOnClickListener(view -> addHandle());
@@ -57,7 +58,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         viewInputs.setOnClickListener(view -> viewHandle());
         done.setOnClickListener(view -> doneHandle());
         importFromExcelButton.setOnClickListener(view -> importHandle());
-
+        googleMap.setOnClickListener(view -> mapHandle());
     }
 
     private void addHandle(){
@@ -147,7 +148,10 @@ public class CoordinateInputActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    private void mapHandle(){
+        Intent intent = new Intent(CoordinateInputActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
     private void importHandle()
     {
         Intent uploadExcelIntent = new Intent(CoordinateInputActivity.this,UploadExcelActivity.class);

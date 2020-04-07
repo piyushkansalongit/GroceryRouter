@@ -11,7 +11,7 @@
     <string name="demand">Demand (in kgs)</string>
     <string name="capacity">Capacity (in kgs)</string>
     <string name="next_agent">Next Agent</string>
-    <string name="deliveryAgents">Delivery Agents Capacity</string>
+    <string name="deliveryAgents">Set Delivery Agents Capacity</string>
     <string name="calculate">Go</string>
     <string name="import_excel">Import from Excel</string>
     <string name="title_activity_list_view">ListViewActivity</string>
@@ -28,6 +28,6 @@
     <string name="demand_heading">Demand</string>
     <string name="capacity_heading">Demand</string>
     <string name="back">Back</string>
-
+    <string name="googlemap">Set Location in Map</string>
 
 </resources>
