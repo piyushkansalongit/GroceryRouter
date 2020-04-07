@@ -33,6 +33,7 @@
         </activity>
         <activity android:name=".MapsActivity" />
         <activity android:name=".ViewListContent" />
+        <activity android:name=".ViewListContent2" />
     </application>
 
 </manifest>

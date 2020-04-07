@@ -13,7 +13,6 @@ android:weightSum="100">
     android:layout_weight="5">
 
     <TextView
-        android:id="@+id/id_heading"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/id_heading"
@@ -23,7 +22,6 @@ android:weightSum="100">
         />
 
     <TextView
-        android:id="@+id/latitude_heading"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/latitude_heading"
@@ -32,7 +30,6 @@ android:weightSum="100">
         android:textSize="20sp"
         />
     <TextView
-        android:id="@+id/longitude_heading"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/longitude_heading"
@@ -41,7 +38,6 @@ android:weightSum="100">
         android:textSize="20sp"
         />
     <TextView
-        android:id="@+id/demand_heading"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/demand_heading"

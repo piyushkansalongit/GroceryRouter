@@ -111,12 +111,17 @@ public class DeliveryAgentActivity extends AppCompatActivity {
             display("Error", "No Data Found");
             return;
         }
-        StringBuffer buffer = new StringBuffer();
-        while(data.moveToNext()){
-            buffer.append("ID: "+data.getString(0) + "\n");
-            buffer.append("Latitude: "+data.getString(1) + "\n");
-        }
-        display("All Stored Data: ", buffer.toString());
+//        StringBuffer buffer = new StringBuffer();
+//        while(data.moveToNext()){
+//            buffer.append("ID: "+data.getString(0) + "\n");
+//            buffer.append("Latitude: "+data.getString(1) + "\n");
+//        }
+//        display("All Stored Data: ", buffer.toString());
+
+        Intent displayIntent = new Intent(DeliveryAgentActivity.this, ViewListContent2.class);
+        startActivity(displayIntent);
+
+
     }
 
     private void doneHandle(){

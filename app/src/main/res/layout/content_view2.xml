@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:layout_weight="5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/id_heading"
+            android:layout_weight="13"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/capacity_heading"
+            android:layout_weight="87"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            />
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/listView2"
+        android:layout_weight="85"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/back_list_view2"
+            android:text="@string/back">
+        </Button>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -26,6 +26,7 @@
     <string name="latitude_heading">Latitude</string>
     <string name="longitude_heading">Longitude</string>
     <string name="demand_heading">Demand</string>
+    <string name="capacity_heading">Demand</string>
     <string name="back">Back</string>
 
 
