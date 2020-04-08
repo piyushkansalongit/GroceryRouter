@@ -76,7 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dLongitude =  address.getLongitude();
                 LatLng latLng = new LatLng(dLatitude, dLongitude);
                 mMap.addMarker(new MarkerOptions().position(latLng).title("selectedPos"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,18), 5000, null);
                 return false;
             }
 
@@ -92,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         LatLng latlng = new LatLng(dLatitude, dLongitude);
         mMap.addMarker(new MarkerOptions().position(latlng).title("currentPos"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,18),5000, null);
     }
 
     @Override
