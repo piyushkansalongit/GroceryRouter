@@ -58,12 +58,14 @@ public class DeliveryAgentActivity extends AppCompatActivity {
             boolean retFlag = db.addData(Capacity);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
-            else
+            else {
                 toastMessage("Data Successfully inserted.");
+                field1.setText("");
+                field2.setText("");
+            }
 
         }
-        field1.setText("");
-        field2.setText("");
+
     }
 
     private void updateHandle(){
@@ -77,12 +79,14 @@ public class DeliveryAgentActivity extends AppCompatActivity {
             boolean retFlag = db.updateData(ID, Capacity);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
-            else
+            else {
                 toastMessage("Data Successfully Updated.");
+                field1.setText("");
+                field2.setText("");
+            }
 
         }
-        field1.setText("");
-        field2.setText("");
+
     }
 
     private void deleteHandle(){
@@ -96,12 +100,14 @@ public class DeliveryAgentActivity extends AppCompatActivity {
             Integer retFlag = db.deleteData(ID);
             if(retFlag > 0)
                 toastMessage("Data Successfully Deleted.");
-            else
+            else{
                 toastMessage("Something Went Wrong! Please try again.");
+                field1.setText("");
+                field2.setText("");
+            }
 
         }
-        field1.setText("");
-        field2.setText("");
+
     }
 
     private void viewHandle(){

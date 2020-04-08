@@ -3,10 +3,13 @@ package com.example.groceryrouter;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
@@ -32,6 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Button done;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
+    SearchView searchView;
     private static final int REQUEST_CODE = 101;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -40,12 +47,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
 
         done = findViewById(R.id.back_fromMap);
         done.setOnClickListener(view -> {
             doneHandle();
+        });
+
+        searchView = findViewById(R.id.sv_location);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                String location = searchView.getQuery().toString();
+                List<Address> addressList = null;
+
+                Geocoder geocoder = new Geocoder(MapsActivity.this);
+                try{
+                    addressList = geocoder.getFromLocationName(location, 1);
+                }catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                assert addressList != null;
+                Address address = addressList.get(0);
+                dLatitude = address.getLatitude();
+                dLongitude =  address.getLongitude();
+                LatLng latLng = new LatLng(dLatitude, dLongitude);
+                mMap.addMarker(new MarkerOptions().position(latLng).title("selectedPos"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
         });
     }
 
@@ -59,13 +97,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        switch(requestCode){
-            case REQUEST_CODE:
-                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    fetchLastLocation();
-                }
-                break;
-
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fetchLastLocation();
+            }
         }
     }
 
@@ -77,9 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(location -> {
-            taskSuccessHandle(location);
-        });
+        task.addOnSuccessListener(this::taskSuccessHandle);
     }
 
     private void taskSuccessHandle(Location location) {
@@ -105,6 +138,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             startActivity(intent);
         }else{
             Intent intent = new Intent(MapsActivity.this, CoordinateInputActivity.class);
+            intent.putExtra("Latitude", String.valueOf(dLatitude));
+            intent.putExtra("Longitude", String.valueOf(dLongitude));
             startActivity(intent);
         }
     }

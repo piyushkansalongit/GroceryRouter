@@ -59,6 +59,20 @@ public class CoordinateInputActivity extends AppCompatActivity {
         done.setOnClickListener(view -> doneHandle());
         importFromExcelButton.setOnClickListener(view -> importHandle());
         googleMap.setOnClickListener(view -> mapHandle());
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null)
+        {
+            String latitude = extras.getString("Latitude");
+            String longitude = extras.getString("Longitude");
+            if(!latitude.equals("") && !longitude.equals(""))
+            {
+                Latitude = latitude;
+                Longitude = longitude;
+                field1.setText(Latitude);
+                field2.setText(Longitude);
+            }
+        }
     }
 
     private void addHandle(){
@@ -71,13 +85,14 @@ public class CoordinateInputActivity extends AppCompatActivity {
             boolean retFlag = db.addData(Latitude, Longitude, Demand);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
-            else
+            else {
                 toastMessage("Data Successfully inserted.");
+                field1.setText("");
+                field2.setText("");
+                field3.setText("");
+                field4.setText("");
+            }
         }
-        field1.setText("");
-        field2.setText("");
-        field3.setText("");
-        field4.setText("");
     }
 
     private void updateHandle(){
@@ -93,14 +108,16 @@ public class CoordinateInputActivity extends AppCompatActivity {
             boolean retFlag = db.updateData(ID, Latitude, Longitude, Demand);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
-            else
+            else {
                 toastMessage("Data Successfully Updated.");
+                field1.setText("");
+                field2.setText("");
+                field3.setText("");
+                field4.setText("");
+            }
 
         }
-        field1.setText("");
-        field2.setText("");
-        field3.setText("");
-        field4.setText("");
+
     }
 
     private void deleteHandle(){
@@ -115,9 +132,6 @@ public class CoordinateInputActivity extends AppCompatActivity {
                 toastMessage("ID not present in the database.");
 
         }
-        field1.setText("");
-        field2.setText("");
-        field3.setText("");
         field4.setText("");
     }
 
