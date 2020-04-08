@@ -17,7 +17,7 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
     String Latitude, Longitude;
     EditText field1;
     EditText field2;
-    Button done;
+    Button googleMap, done;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,9 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
         field1 = findViewById(R.id.latitude_coordinate_warehouse);
         field2 = findViewById(R.id.longitude_coordinate_warehouse);
         done = findViewById(R.id.done_coordinate_warehouse);
+        googleMap = findViewById(R.id.set_coordinate_warehouse);
+
+
         done.setOnClickListener(view -> {
             Latitude = field1.getText().toString();
             Longitude = field2.getText().toString();
@@ -39,6 +42,13 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
                 intent.putExtra("warehouseCoordinates",String.join(" ",Latitude, Longitude));
                 startActivity(intent);
             }
+        });
+
+
+        googleMap.setOnClickListener(view -> {
+            Intent intent = new Intent(CoordinateWarehouseActivity.this, MapsActivity.class);
+            intent.putExtra("warehouseActivity", true);
+            startActivity(intent);
         });
     }
 }

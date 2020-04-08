@@ -33,7 +33,11 @@
             android:ems="10"
             android:hint="@string/longitude"
             android:inputType="number" />
-
+        <Button
+            android:id="@+id/set_coordinate_warehouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/googlemap" />
         <Button
             android:id="@+id/done_coordinate_warehouse"
             android:layout_width="match_parent"

@@ -1,17 +1,17 @@
 package com.example.groceryrouter;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class CoordinateInputActivity extends AppCompatActivity {
@@ -150,6 +150,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
 
     private void mapHandle(){
         Intent intent = new Intent(CoordinateInputActivity.this, MapsActivity.class);
+        intent.putExtra("deliveryCoordinateActivity", true);
         startActivity(intent);
     }
     private void importHandle()
