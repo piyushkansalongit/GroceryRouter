@@ -8,7 +8,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -30,14 +29,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,49 +58,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Places.initialize(getApplicationContext(),getString(R.string.map_key));
         PlacesClient placesClient = Places.createClient(this);
-
-        AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
         autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
-
         autocompleteSupportFragment.setCountry("IN");
-
         autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+        done = findViewById(R.id.back_fromMap);
+        searchView = findViewById(R.id.sv_location);
 
         autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 LatLng latLng = place.getLatLng();
-                mMap.addMarker(new MarkerOptions().position(latLng).title("selectedPos"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,18), 5000, null);
+                moveCamera(latLng);
             }
-
-            @Override
-            public void onError(@NonNull Status status) {
-
-            }
+            @Override public void onError(@NonNull Status status) {}
         });
 
-
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
 
-        done = findViewById(R.id.back_fromMap);
         done.setOnClickListener(view -> {
             doneHandle();
         });
 
-        searchView = findViewById(R.id.sv_location);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-            @Override
-            public boolean onQueryTextSubmit(String query) {
+            @Override public boolean onQueryTextSubmit(String query) {
                 String location = searchView.getQuery().toString();
                 List<Address> addressList = null;
-
                 Geocoder geocoder = new Geocoder(MapsActivity.this);
-                try{
+                try
+                {
                     addressList = geocoder.getFromLocationName(location, 1);
                 }catch (IOException e)
                 {
@@ -114,24 +98,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dLatitude = address.getLatitude();
                 dLongitude =  address.getLongitude();
                 LatLng latLng = new LatLng(dLatitude, dLongitude);
-                mMap.addMarker(new MarkerOptions().position(latLng).title("selectedPos"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,18), 5000, null);
+                moveCamera(latLng);
                 return false;
             }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+            @Override public boolean onQueryTextChange(String newText) { return false; }});
     }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng latlng = new LatLng(dLatitude, dLongitude);
-        mMap.addMarker(new MarkerOptions().position(latlng).title("currentPos"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,18),5000, null);
+        moveCamera(latlng);
     }
 
     @Override
@@ -143,6 +122,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
+    // Listeners
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void doneHandle(){
+        Bundle extras = getIntent().getExtras();
+        assert extras != null;
+        Intent intent;
+        if(extras.getBoolean("warehouseActivity"))
+            intent = new Intent(MapsActivity.this, CoordinateWarehouseActivity.class);
+        else
+            intent = new Intent(MapsActivity.this, CoordinateInputActivity.class);
+        intent.putExtra("Latitude", String.valueOf(dLatitude));
+        intent.putExtra("Longitude", String.valueOf(dLongitude));
+        startActivity(intent);
+    }
+
+    private void taskSuccessHandle(Location location) {
+        if(location != null){
+            currentLocation = location;
+            dLatitude = currentLocation.getLatitude();
+            dLongitude = currentLocation.getLongitude();
+            SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            assert mapFragment != null;
+            mapFragment.getMapAsync(this);
+            toastMessage("Coordinates Set at current Location");
+        }
+    }
+
+    // Helper Functions
     private void fetchLastLocation() {
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
@@ -154,32 +163,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         task.addOnSuccessListener(this::taskSuccessHandle);
     }
 
-    private void taskSuccessHandle(Location location) {
-        if(location != null){
-            currentLocation = location;
-            dLatitude = currentLocation.getLatitude();
-            dLongitude = currentLocation.getLongitude();
-            Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-            SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            assert mapFragment != null;
-            mapFragment.getMapAsync(this);
-        }
+    private void moveCamera(LatLng latLng) {
+        mMap.addMarker(new MarkerOptions().position(latLng).title("selectedPos"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,18), 5000, null);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void doneHandle(){
-        Bundle extras = getIntent().getExtras();
-        assert extras != null;
-        if(extras.getBoolean("warehouseActivity")) {
-            Intent intent = new Intent(MapsActivity.this, MainActivity.class);
-            intent.putExtra("warehouseCoordinates", String.join(" ", String.valueOf(dLatitude), String.valueOf(dLatitude)));
-            startActivity(intent);
-        }else{
-            Intent intent = new Intent(MapsActivity.this, CoordinateInputActivity.class);
-            intent.putExtra("Latitude", String.valueOf(dLatitude));
-            intent.putExtra("Longitude", String.valueOf(dLongitude));
-            startActivity(intent);
-        }
+    private void toastMessage(String message)
+    {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
     }
 }

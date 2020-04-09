@@ -84,11 +84,6 @@
             android:text="@string/view" />
 
         <Button
-            android:id="@+id/done_coordinate_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/done" />
-        <Button
             android:id="@+id/import_from_google_maps_coordinate_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,6 +93,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/import_excel" />
+        <Button
+            android:id="@+id/done_coordinate_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/done" />
     </LinearLayout>
 
 </RelativeLayout>

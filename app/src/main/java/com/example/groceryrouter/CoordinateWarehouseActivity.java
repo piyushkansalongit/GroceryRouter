@@ -29,26 +29,40 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
         googleMap = findViewById(R.id.set_coordinate_warehouse);
 
 
-        done.setOnClickListener(view -> {
-            Latitude = field1.getText().toString();
-            Longitude = field2.getText().toString();
-            if(Latitude.equals("") || Longitude.equals(""))
-            {
-                Toast toast = Toast.makeText(getApplicationContext(),"Please fill all the fields", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-            else{
-                Intent intent = new Intent(CoordinateWarehouseActivity.this, MainActivity.class);
-                intent.putExtra("warehouseCoordinates",String.join(" ",Latitude, Longitude));
-                startActivity(intent);
-            }
-        });
+        // OnClickListeners
+        done.setOnClickListener(view -> doneHandle());
+        googleMap.setOnClickListener(view -> mapHandle());
 
+        Bundle extras = getIntent().getExtras();
+        if(extras!= null){
+            String latitude = extras.getString("Latitude");
+            String longitude = extras.getString("Longitude");
 
-        googleMap.setOnClickListener(view -> {
-            Intent intent = new Intent(CoordinateWarehouseActivity.this, MapsActivity.class);
-            intent.putExtra("warehouseActivity", true);
+            if(!latitude.equals("") && !longitude.equals("")){
+                field1.setText(latitude);
+                field2.setText(longitude);
+            }
+        }
+    }
+
+    private void mapHandle() {
+        Intent intent = new Intent(CoordinateWarehouseActivity.this, MapsActivity.class);
+        intent.putExtra("warehouseActivity", true);
+        startActivity(intent);
+    }
+
+    private void doneHandle() {
+        Latitude = field1.getText().toString();
+        Longitude = field2.getText().toString();
+        if(Latitude.equals("") || Longitude.equals(""))
+        {
+            Toast toast = Toast.makeText(getApplicationContext(),"Please fill all the fields", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else{
+            Intent intent = new Intent(CoordinateWarehouseActivity.this, MainActivity.class);
+            intent.putExtra("warehouseCoordinates",String.join(" ",Latitude, Longitude));
             startActivity(intent);
-        });
+        }
     }
 }

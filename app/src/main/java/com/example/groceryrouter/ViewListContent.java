@@ -42,7 +42,22 @@ public class ViewListContent extends AppCompatActivity {
 
         back = findViewById(R.id.back_list_view);
         back.setOnClickListener(view -> {
+            String Latitude, Longitude, Demand, ID;
+            Bundle extras = getIntent().getExtras();
+            if(extras!=null)
+            {
+                Latitude = extras.getString("Latitude");
+                Longitude = extras.getString("Longitude");
+                Demand = extras.getString("Demand");
+                ID = extras.getString("ID");
+            }else
+                Latitude = Longitude = Demand = ID = "";
+
             Intent intent = new Intent(ViewListContent.this, CoordinateInputActivity.class);
+            intent.putExtra("Latitude", Latitude);
+            intent.putExtra("Longitude", Longitude);
+            intent.putExtra("Demand", Demand);
+            intent.putExtra("ID", ID);
             startActivity(intent);
         });
     }

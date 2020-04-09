@@ -47,6 +47,12 @@ public class DeliveryAgentActivity extends AppCompatActivity {
         viewAgentsButton.setOnClickListener(view -> viewHandle());
         doneAgentsButton.setOnClickListener(view-> doneHandle());
         importFromExcelButton.setOnClickListener(view -> importHandle());
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null)
+        {
+            field1.setText(extras.getString("Capacity"));
+            field2.setText(extras.getString("ID"));
+        }
     }
 
     private void addHandle(){
@@ -92,16 +98,18 @@ public class DeliveryAgentActivity extends AppCompatActivity {
     private void deleteHandle(){
         Capacity = field1.getText().toString();
         ID = field2.getText().toString();
+        Cursor data = db.showData();
         if(ID.equals("")) {
-            Log.d("IDDDDDD", "HGKHGKK");
             toastMessage("Please enter an ID to delete");
         }
+        else if(data.getCount()==0)
+            toastMessage("Database is empty");
         else{
             Integer retFlag = db.deleteData(ID);
             if(retFlag > 0)
                 toastMessage("Data Successfully Deleted.");
             else{
-                toastMessage("Something Went Wrong! Please try again.");
+                toastMessage("ID not present in the database.");
                 field1.setText("");
                 field2.setText("");
             }
@@ -117,14 +125,10 @@ public class DeliveryAgentActivity extends AppCompatActivity {
             display("Error", "No Data Found");
             return;
         }
-//        StringBuffer buffer = new StringBuffer();
-//        while(data.moveToNext()){
-//            buffer.append("ID: "+data.getString(0) + "\n");
-//            buffer.append("Latitude: "+data.getString(1) + "\n");
-//        }
-//        display("All Stored Data: ", buffer.toString());
 
         Intent displayIntent = new Intent(DeliveryAgentActivity.this, ViewListContent2.class);
+        displayIntent.putExtra("Demand", field1.getText().toString());
+        displayIntent.putExtra("ID", field2.getText().toString());
         startActivity(displayIntent);
 
 

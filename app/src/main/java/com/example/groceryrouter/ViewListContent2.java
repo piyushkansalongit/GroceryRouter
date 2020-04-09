@@ -42,7 +42,17 @@ public class ViewListContent2 extends AppCompatActivity {
 
         back = findViewById(R.id.back_list_view2);
         back.setOnClickListener(view -> {
+            String Capacity, ID;
+            Bundle extras = getIntent().getExtras();
+            if(extras!=null)
+            {
+                Capacity = extras.getString("Capacity");
+                ID = extras.getString("ID");
+            }else
+                Capacity = ID = "";
             Intent intent = new Intent(ViewListContent2.this, DeliveryAgentActivity.class);
+            intent.putExtra("Capacity", Capacity);
+            intent.putExtra("ID", ID);
             startActivity(intent);
         });
     }

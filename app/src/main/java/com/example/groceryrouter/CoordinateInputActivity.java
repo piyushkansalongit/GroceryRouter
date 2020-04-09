@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -63,15 +62,10 @@ public class CoordinateInputActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null)
         {
-            String latitude = extras.getString("Latitude");
-            String longitude = extras.getString("Longitude");
-            if(!latitude.equals("") && !longitude.equals(""))
-            {
-                Latitude = latitude;
-                Longitude = longitude;
-                field1.setText(Latitude);
-                field2.setText(Longitude);
-            }
+            field1.setText(extras.getString("Latitude"));
+            field2.setText(extras.getString("Longitude"));
+            field3.setText(extras.getString("Demand"));
+            field4.setText(extras.getString("ID"));
         }
     }
 
@@ -102,7 +96,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         ID = field4.getText().toString();
         if(Latitude.equals("") || Longitude.equals("") || Demand.equals(""))
             toastMessage("Please fill all the fields correctly");
-        else if(ID==null)
+        else if(ID.equals(""))
             toastMessage("You must enter an ID to update");
         else{
             boolean retFlag = db.updateData(ID, Latitude, Longitude, Demand);
@@ -121,9 +115,12 @@ public class CoordinateInputActivity extends AppCompatActivity {
     }
 
     private void deleteHandle(){
+        Cursor data = db.showData();
         ID = field4.getText().toString();
         if(ID.equals(""))
             toastMessage("Please enter an ID to delete");
+        else if(data.getCount()==0)
+            toastMessage("Database is empty");
         else{
             Integer retFlag = db.deleteData(ID);
             if(retFlag > 0)
@@ -136,23 +133,17 @@ public class CoordinateInputActivity extends AppCompatActivity {
     }
 
     private void viewHandle(){
-        Log.d("view","view is pressed");
         Cursor data = db.showData();
         if(data.getCount()==0)
         {
             display("Error", "No Data Found");
             return;
         }
-//        StringBuffer buffer = new StringBuffer();
-//        while(data.moveToNext()){
-//            buffer.append("ID: "+data.getString(0) + "\n");
-//            buffer.append("Latitude: "+data.getString(1) + "\n");
-//            buffer.append("Longitude: "+data.getString(2) + "\n");
-//            buffer.append("Demand: "+data.getString(3) + "\n");
-//
-//        }
-//        display("All Stored Data: ", buffer.toString());
         Intent displayIntent = new Intent(CoordinateInputActivity.this, ViewListContent.class);
+        displayIntent.putExtra("Latitude", field1.getText().toString());
+        displayIntent.putExtra("Longitude", field2.getText().toString());
+        displayIntent.putExtra("Demand", field3.getText().toString());
+        displayIntent.putExtra("ID", field4.getText().toString());
         startActivity(displayIntent);
     }
 
@@ -173,6 +164,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         uploadExcelIntent.putExtra("c_max","3");
         startActivity(uploadExcelIntent);
     }
+    // Helper Functions
     private void toastMessage(String message)
     {
         Toast toast = Toast.makeText(getApplicationContext(),message, Toast.LENGTH_SHORT);

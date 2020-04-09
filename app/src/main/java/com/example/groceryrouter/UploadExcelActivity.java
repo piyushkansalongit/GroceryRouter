@@ -135,7 +135,8 @@ public class UploadExcelActivity extends AppCompatActivity {
                 if(cellsCount!=c_max)
                 {
                     toastMessage("Excel File format is not correct");
-                    break;
+                    returnToCallingActivity(c_max);
+                    return;
                 }
                 for(int c=0; c<cellsCount; c++)
                 {
@@ -223,6 +224,16 @@ public class UploadExcelActivity extends AppCompatActivity {
         }
         toastMessage("Data Successfully Imported");
         startActivity(intent);
+    }
+    private void returnToCallingActivity(int c_max)
+    {
+        Intent intent;
+        if(c_max==3)
+            intent = new Intent(UploadExcelActivity.this, CoordinateInputActivity.class);
+        else
+            intent = new Intent(UploadExcelActivity.this, DeliveryAgentActivity.class);
+        startActivity(intent);
+        return;
     }
     private String getCellAsString(Row row, int c, FormulaEvaluator fe)
     {

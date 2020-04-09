@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         deliveryAgentsButton.setOnClickListener(view -> deliveryAgentsHandle());
         calculateRouteButton.setOnClickListener(view -> calculateOutputHandle());
 
-        try{
+        try {
             Intent intent = getIntent();
-            assert  intent!=null;
+            assert intent != null;
             Bundle bundle = intent.getExtras();
             assert bundle != null;
             String warehouseCoordinates_temp = bundle.getString("warehouseCoordinates");
@@ -47,33 +47,42 @@ public class MainActivity extends AppCompatActivity {
                 this.warehouseCoordinatesString = warehouseCoordinates_temp;
                 toastMessage("Warehouse Coordinates Registered");
             }
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
 
     }
 
-    private void whcHandle(){
+    private void whcHandle() {
         Intent warehouseCoordinatedIntent = new Intent(MainActivity.this, CoordinateWarehouseActivity.class);
         startActivity(warehouseCoordinatedIntent);
     }
-    private void deliveryCoordinatesHandle(){
+
+    private void deliveryCoordinatesHandle() {
         deliveryCoordinatesDB.deleteAll();
         Intent deliveryCoordinatesIntent = new Intent(MainActivity.this, CoordinateInputActivity.class);
         startActivity(deliveryCoordinatesIntent);
     }
-    private void deliveryAgentsHandle(){
+
+    private void deliveryAgentsHandle() {
         deliveryAgentsDB.deleteAll();
         Intent deliveryAgentsIntent = new Intent(MainActivity.this, DeliveryAgentActivity.class);
         startActivity(deliveryAgentsIntent);
     }
-    private void calculateOutputHandle(){
+
+    private void calculateOutputHandle() {
         Intent outputIntent = new Intent(MainActivity.this, TSPOutputActivity.class);
+        outputIntent.putExtra("warehouseCoordinates", warehouseCoordinatesString);
         startActivity(outputIntent);
     }
-    private void toastMessage(String message)
-    {
-        Toast toast = Toast.makeText(getApplicationContext(),message, Toast.LENGTH_SHORT);
+
+    // Helper Functions
+    private void toastMessage(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
     }
+}
+
+// How to use shared preferences?
 //    protected void save()
 //    {
 //        super.onPause();
@@ -102,6 +111,6 @@ public class MainActivity extends AppCompatActivity {
 //        flag3 = sh.getBoolean("f3", false);
 //    }
 
-}
+
 
 
