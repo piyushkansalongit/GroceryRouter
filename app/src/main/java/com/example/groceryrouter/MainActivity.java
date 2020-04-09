@@ -1,13 +1,10 @@
 package com.example.groceryrouter;
 
 import android.content.Intent;
-//import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             if (!warehouseCoordinates_temp.equals("")) {
                 this.warehouseCoordinatesString = warehouseCoordinates_temp;
                 toastMessage("Warehouse Coordinates Registered");
+                save();
             }
         } catch (Exception ignored) {
         }
@@ -71,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void calculateOutputHandle() {
         Intent outputIntent = new Intent(MainActivity.this, TSPOutputActivity.class);
+        restore();
         outputIntent.putExtra("warehouseCoordinates", warehouseCoordinatesString);
         startActivity(outputIntent);
     }
@@ -80,36 +79,26 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
     }
+
+    protected void save()
+    {
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("whcs", warehouseCoordinatesString);
+        myEdit.apply();
+    }
+
+    protected void restore()
+    {
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        warehouseCoordinatesString = sh.getString("whcs", "");
+    }
+
 }
 
-// How to use shared preferences?
-//    protected void save()
-//    {
-//        super.onPause();
-//        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-//        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-//        myEdit.putString("whcs", warehouseCoordinatesString);
-//        myEdit.putString("dcl", ObjectSerializer.serialize(deliveryCoordinatesList));
-//        myEdit.putString("dal", ObjectSerializer.serialize(deliveryAgentsList));
-//        myEdit.putBoolean("f1", flag1);
-//        myEdit.putBoolean("f2", flag2);
-//        myEdit.putBoolean("f3", flag3);
-//        myEdit.apply();
-//    }
 
-//    protected void restore()
-//    {
-//        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-//        warehouseCoordinatesString = sh.getString("whcs", "");
-//        try {
-//            deliveryCoordinatesList = (ArrayList<String>) ObjectSerializer.deserialize(sh.getString("dcl", ""));
-//            deliveryAgentsList = (ArrayList<String>) ObjectSerializer.deserialize(sh.getString("dal", ""));
-//        }catch(Exception ignored){}
-//
-//        flag1 = sh.getBoolean("f1", false);
-//        flag2 = sh.getBoolean("f2", false);
-//        flag3 = sh.getBoolean("f3", false);
-//    }
+
+
 
 
 

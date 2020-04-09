@@ -51,6 +51,7 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void doneHandle() {
         Latitude = field1.getText().toString();
         Longitude = field2.getText().toString();
@@ -65,4 +66,8 @@ public class CoordinateWarehouseActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+//    private void toastMessage(String message){
+//        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+//    }
 }
