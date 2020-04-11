@@ -77,9 +77,6 @@ public class CoordinateInputActivity extends AppCompatActivity {
         if(Latitude.equals("") || Longitude.equals("") || Demand.equals(""))
             toastMessage("Please fill all the fields correctly");
         else{
-            if(Label==null) {
-                Label = "";
-            }
             boolean retFlag = db.addData(Latitude, Longitude, Demand, Label);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
@@ -88,7 +85,6 @@ public class CoordinateInputActivity extends AppCompatActivity {
                 field1.setText("");
                 field2.setText("");
                 field3.setText("");
-                field4.setText("");
                 field5.setText("");
             }
         }
@@ -105,8 +101,6 @@ public class CoordinateInputActivity extends AppCompatActivity {
         else if(ID.equals(""))
             toastMessage("You must enter an ID to update");
         else{
-            if(Label == null)
-                Label = "";
             boolean retFlag = db.updateData(ID, Latitude, Longitude, Demand, Label);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");

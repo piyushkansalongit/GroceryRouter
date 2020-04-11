@@ -60,20 +60,16 @@ public class DeliveryAgentActivity extends AppCompatActivity {
 
     private void addHandle(){
         Capacity = field1.getText().toString();
-        ID = field2.getText().toString();
         Label = field3.getText().toString();
         if(Capacity.equals(""))
             toastMessage("Please fill all the fields correctly");
         else{
-            if(Label == null)
-                Label = "";
             boolean retFlag = db.addData(Capacity, Label);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
             else {
                 toastMessage("Data Successfully inserted.");
                 field1.setText("");
-                field2.setText("");
                 field3.setText("");
             }
 
@@ -90,8 +86,6 @@ public class DeliveryAgentActivity extends AppCompatActivity {
         else if(ID.equals(""))
             toastMessage("You must enter an ID to update");
         else{
-            if(Label == null)
-                Label = "";
             boolean retFlag = db.updateData(ID, Capacity, Label);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
