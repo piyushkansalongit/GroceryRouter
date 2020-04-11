@@ -29,6 +29,8 @@
     <string name="capacity_heading">Demand</string>
     <string name="back">Back</string>
     <string name="clear">Clear Inputs</string>
+    <string name="label">Label (Optional)</string>
+    <string name="label_heading">Label</string>
     <string name="googlemap">Set Location in Map</string>
 
 </resources>

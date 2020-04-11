@@ -42,7 +42,13 @@
             android:ems="10"
             android:hint="@string/demand"
             android:inputType="number" />
-
+        <EditText
+            android:id="@+id/label_coordinate_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/label"
+            android:inputType="number" />
         <EditText
             android:id="@+id/id_coordinate_input"
             android:layout_width="match_parent"

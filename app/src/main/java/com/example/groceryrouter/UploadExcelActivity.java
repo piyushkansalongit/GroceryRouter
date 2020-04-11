@@ -132,7 +132,7 @@ public class UploadExcelActivity extends AppCompatActivity {
                 Row row = sheet.getRow(r);
                 int cellsCount = row.getPhysicalNumberOfCells();
                 Log.d("cellsCount", String.valueOf(cellsCount));
-                if(cellsCount!=c_max)
+                if(cellsCount < c_max-1 || cellsCount > c_max)
                 {
                     toastMessage("Excel File format is not correct");
                     returnToCallingActivity(c_max);
@@ -143,6 +143,10 @@ public class UploadExcelActivity extends AppCompatActivity {
                     String value = getCellAsString(row, c, fe);
                     Log.d("value", String.valueOf(value));
                     sb.append(value).append(" ");
+                }
+                if(cellsCount < c_max)
+                {
+                    sb.append("").append(" ");
                 }
                 sb.append(":");
             }
@@ -206,20 +210,30 @@ public class UploadExcelActivity extends AppCompatActivity {
         Coordinates.addAll(Arrays.asList(rows));
 
         Intent intent;
-        if(c_max==3) {
+        if(c_max==4) {
             DeliveryCoordinatesDB db = WelcomeActivity.deliveryCoordinatesDB;
             intent = new Intent(UploadExcelActivity.this, CoordinateInputActivity.class);
             for(int i=0; i<Coordinates.size();i++)
             {
                 String[] columns = Coordinates.get(i).split(" ");
-                db.addData(columns[0], columns[1], columns[2]);
+                if(columns.length== c_max)
+                    db.addData(columns[0], columns[1], columns[2], columns[3]);
+                else
+                    db.addData(columns[0], columns[1], columns[2], "");
             }
         }
         else {
             DeliveryAgentsDB db = WelcomeActivity.deliveryAgentsDB;
             intent = new Intent(UploadExcelActivity.this, DeliveryAgentActivity.class);
             for(int i=0; i<Coordinates.size();i++)
-                db.addData(Coordinates.get(i));
+            {
+                String[] columns = Coordinates.get(i).split(" ");
+
+                if(columns.length==c_max)
+                    db.addData(columns[0], columns[1]);
+                else
+                    db.addData(columns[0], "");
+            }
 
         }
         toastMessage("Data Successfully Imported");
@@ -228,7 +242,7 @@ public class UploadExcelActivity extends AppCompatActivity {
     private void returnToCallingActivity(int c_max)
     {
         Intent intent;
-        if(c_max==3)
+        if(c_max==4)
             intent = new Intent(UploadExcelActivity.this, CoordinateInputActivity.class);
         else
             intent = new Intent(UploadExcelActivity.this, DeliveryAgentActivity.class);

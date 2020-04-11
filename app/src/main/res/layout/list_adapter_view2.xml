@@ -9,16 +9,22 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="13"
+        android:layout_weight="12"
         android:textSize="18sp"
         android:id="@+id/idCol2" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="87"
+        android:layout_weight="44"
         android:textSize="18sp"
         android:id="@+id/capacityCol" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="44"
+        android:textSize="18sp"
+        android:id="@+id/labelCol2" />
 
 </LinearLayout>

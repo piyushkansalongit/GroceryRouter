@@ -16,7 +16,7 @@ android:weightSum="100">
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/id_heading"
-        android:layout_weight="13"
+        android:layout_weight="12"
         android:textStyle="bold"
         android:textSize="20sp"
         />
@@ -25,7 +25,7 @@ android:weightSum="100">
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/latitude_heading"
-        android:layout_weight="29"
+        android:layout_weight="22"
         android:textStyle="bold"
         android:textSize="20sp"
         />
@@ -33,7 +33,7 @@ android:weightSum="100">
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/longitude_heading"
-        android:layout_weight="29"
+        android:layout_weight="22"
         android:textStyle="bold"
         android:textSize="20sp"
         />
@@ -41,7 +41,15 @@ android:weightSum="100">
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/demand_heading"
-        android:layout_weight="29"
+        android:layout_weight="22"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/label_heading"
+        android:layout_weight="22"
         android:textStyle="bold"
         android:textSize="20sp"
         />

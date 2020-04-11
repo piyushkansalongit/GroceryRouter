@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
@@ -35,12 +37,13 @@ public class FourColumn_ListAdapter extends ArrayAdapter<DeliveryEntry> {
              TextView latitude = convertView.findViewById(R.id.latitudeCol);
              TextView longitude = convertView.findViewById(R.id.longitudeCol);
              TextView demand = convertView.findViewById(R.id.demandCol);
-
+             TextView label = convertView.findViewById(R.id.labelCol);
              if(id!=null){
                  id.setText(deliveryEntry.getID());
                  latitude.setText(deliveryEntry.getLatitude());
                  longitude.setText(deliveryEntry.getLongitude());
                  demand.setText(deliveryEntry.getDemand());
+                 label.setText(deliveryEntry.getLabel());
              }
          }
          return convertView;

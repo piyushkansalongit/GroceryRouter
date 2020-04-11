@@ -28,10 +28,11 @@ public class TwoColumn_ListAdapter extends ArrayAdapter<AgentEntry> {
         if (agentEntry != null) {
             TextView id = convertView.findViewById(R.id.idCol2);
             TextView capacity = convertView.findViewById(R.id.capacityCol);
-
+            TextView label = convertView.findViewById(R.id.labelCol2);
             if (id != null) {
                 id.setText(agentEntry.getID());
                 capacity.setText(agentEntry.getCapacity());
+                label.setText(agentEntry.getLabel());
             }
         }
         return convertView;
