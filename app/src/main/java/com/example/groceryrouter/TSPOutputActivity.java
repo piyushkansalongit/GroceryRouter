@@ -3,7 +3,6 @@ package com.example.groceryrouter;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,8 +35,8 @@ public class TSPOutputActivity extends AppCompatActivity implements TaskLoadedCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.display_map);
         mapFragment.getMapAsync(this);
         warehouseCoordinate = extras.getString("warehouseCoordinates").split(" ", 2);
-        deliveryCoordinatesDB = MainActivity.deliveryCoordinatesDB;
-        deliveryAgentsDB = MainActivity.deliveryAgentsDB;
+        deliveryCoordinatesDB = WelcomeActivity.deliveryCoordinatesDB;
+        deliveryAgentsDB = WelcomeActivity.deliveryAgentsDB;
         done = findViewById(R.id.output_done);
         done.setOnClickListener(view -> {
             Intent intent = new Intent(TSPOutputActivity.this, MainActivity.class);

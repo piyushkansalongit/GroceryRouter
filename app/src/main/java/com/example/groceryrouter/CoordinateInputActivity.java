@@ -22,7 +22,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
     EditText field2;
     EditText field3;
     EditText field4;
-    Button addCoordinate, updateCoordinate, deleteCoordinate, viewInputs, done, googleMap, importFromExcelButton;
+    Button addCoordinate, updateCoordinate, deleteCoordinate, viewInputs, clearInputs, done, googleMap, importFromExcelButton;
     DeliveryCoordinatesDB db;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -39,13 +39,14 @@ public class CoordinateInputActivity extends AppCompatActivity {
 
 
         //Database
-        db =  MainActivity.deliveryCoordinatesDB;
+        db =  WelcomeActivity.deliveryCoordinatesDB;
 
         //Buttons
         addCoordinate = findViewById(R.id.add_coordinate_input);
         updateCoordinate = findViewById(R.id.update_coordinate_input);
         deleteCoordinate = findViewById(R.id.delete_coordinate_input);
         viewInputs = findViewById(R.id.view_coordinate_input);
+        clearInputs = findViewById(R.id.clear_coordinate_input);
         done = findViewById(R.id.done_coordinate_input);
         importFromExcelButton = findViewById(R.id.import_excel_coordinate_input);
         googleMap = findViewById(R.id.import_from_google_maps_coordinate_input);
@@ -55,6 +56,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         updateCoordinate.setOnClickListener(view -> updateHandle());
         deleteCoordinate.setOnClickListener(view -> deleteHandle());
         viewInputs.setOnClickListener(view -> viewHandle());
+        clearInputs.setOnClickListener(view -> clearHandle());
         done.setOnClickListener(view -> doneHandle());
         importFromExcelButton.setOnClickListener(view -> importHandle());
         googleMap.setOnClickListener(view -> mapHandle());
@@ -147,6 +149,10 @@ public class CoordinateInputActivity extends AppCompatActivity {
         startActivity(displayIntent);
     }
 
+    private void clearHandle(){
+        db.deleteAll();
+        toastMessage("Database Cleared.");
+    }
     private void doneHandle()
     {
         Intent  intent = new Intent(CoordinateInputActivity.this, MainActivity.class);

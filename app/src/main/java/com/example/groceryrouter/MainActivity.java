@@ -19,9 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        deliveryCoordinatesDB = new DeliveryCoordinatesDB(this);
-        deliveryAgentsDB = new DeliveryAgentsDB(this);
-
+        deliveryCoordinatesDB = WelcomeActivity.deliveryCoordinatesDB;
+        deliveryAgentsDB = WelcomeActivity.deliveryAgentsDB;
         // Buttons
         Button warehouseCoordinateButton = findViewById(R.id.warehouseLoc_main);
         Button deliveryCoordinatesButton = findViewById(R.id.deliveryLoc_main);
@@ -56,13 +55,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deliveryCoordinatesHandle() {
-        deliveryCoordinatesDB.deleteAll();
         Intent deliveryCoordinatesIntent = new Intent(MainActivity.this, CoordinateInputActivity.class);
         startActivity(deliveryCoordinatesIntent);
     }
 
     private void deliveryAgentsHandle() {
-        deliveryAgentsDB.deleteAll();
         Intent deliveryAgentsIntent = new Intent(MainActivity.this, DeliveryAgentActivity.class);
         startActivity(deliveryAgentsIntent);
     }

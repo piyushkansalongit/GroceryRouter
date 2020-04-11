@@ -21,7 +21,7 @@ public class DeliveryAgentActivity extends AppCompatActivity {
     String ID;
     EditText field1;
     EditText field2;
-    Button addButton, updateButton, deleteButton, viewAgentsButton, doneAgentsButton, importFromExcelButton;
+    Button addButton, updateButton, deleteButton, viewAgentsButton, clearAgentsButton, doneAgentsButton, importFromExcelButton;
     DeliveryAgentsDB db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +34,19 @@ public class DeliveryAgentActivity extends AppCompatActivity {
         updateButton = findViewById(R.id.update_agent_delivery);
         deleteButton = findViewById(R.id.delete_agent_delivery);
         viewAgentsButton = findViewById(R.id.view_agent_delivery);
+        clearAgentsButton = findViewById(R.id.clear_agent_delivery);
         doneAgentsButton = findViewById(R.id.done_agent_delivery);
         importFromExcelButton = findViewById(R.id.import_excel_agent_delivery);
 
         //Database
-        db = MainActivity.deliveryAgentsDB;
+        db = WelcomeActivity.deliveryAgentsDB;
 
         //OnClickListeners
         addButton.setOnClickListener(view -> addHandle());
         updateButton.setOnClickListener(view -> updateHandle());
         deleteButton.setOnClickListener(view -> deleteHandle());
         viewAgentsButton.setOnClickListener(view -> viewHandle());
+        clearAgentsButton.setOnClickListener(view -> clearHandle());
         doneAgentsButton.setOnClickListener(view-> doneHandle());
         importFromExcelButton.setOnClickListener(view -> importHandle());
         Bundle extras = getIntent().getExtras();
@@ -134,6 +136,10 @@ public class DeliveryAgentActivity extends AppCompatActivity {
 
     }
 
+    private void clearHandle(){
+        db.deleteAll();
+        toastMessage("Database Cleared");
+    }
     private void doneHandle(){
         Intent  intent = new Intent(DeliveryAgentActivity.this, MainActivity.class);
         startActivity(intent);
