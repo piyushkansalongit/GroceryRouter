@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -35,7 +34,7 @@ public class DeliveryCoordinatesDB extends SQLiteOpenHelper {
 
     boolean addData(String Latitude, String Longitude, String Demand)
     {
-        SQLiteDatabase db = MainActivity.deliveryCoordinatesDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryCoordinatesDB.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, Latitude);
         contentValues.put(COL3, Longitude);
@@ -46,7 +45,7 @@ public class DeliveryCoordinatesDB extends SQLiteOpenHelper {
     }
     boolean updateData(String ID, String Latitude, String Longitude, String Demand)
     {
-        SQLiteDatabase db = MainActivity.deliveryCoordinatesDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryCoordinatesDB.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL1, ID);
         contentValues.put(COL2, Latitude);
@@ -58,17 +57,17 @@ public class DeliveryCoordinatesDB extends SQLiteOpenHelper {
 
     Integer deleteData(String ID)
     {
-        SQLiteDatabase db = MainActivity.deliveryCoordinatesDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryCoordinatesDB.getWritableDatabase();
         return db.delete(TABLE_NAME, "ID = ?", new String[]{ID});
     }
     Cursor showData(){
-        SQLiteDatabase db = MainActivity.deliveryCoordinatesDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryCoordinatesDB.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM "+TABLE_NAME, null);
         return data;
     }
 
     void deleteAll(){
-        SQLiteDatabase db = MainActivity.deliveryCoordinatesDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryCoordinatesDB.getWritableDatabase();
         db.delete(TABLE_NAME, null, null);
     }
 }

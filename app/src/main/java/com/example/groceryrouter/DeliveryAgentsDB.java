@@ -33,7 +33,7 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
 
     public boolean addData(String Capacity)
     {
-        SQLiteDatabase db = MainActivity.deliveryAgentsDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryAgentsDB.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, Capacity);
         long result = db.insert(TABLE_NAME, null, contentValues);
@@ -41,7 +41,7 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
     }
     boolean updateData(String ID, String Capacity)
     {
-        SQLiteDatabase db = MainActivity.deliveryAgentsDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryAgentsDB.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL1, ID);
         contentValues.put(COL2, Capacity);
@@ -51,16 +51,16 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
 
     Integer deleteData(String ID)
     {
-        SQLiteDatabase db = MainActivity.deliveryAgentsDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryAgentsDB.getWritableDatabase();
         return db.delete(TABLE_NAME, "ID = ?", new String[]{ID});
     }
     Cursor showData(){
-        SQLiteDatabase db = MainActivity.deliveryAgentsDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryAgentsDB.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM "+TABLE_NAME, null);
         return data;
     }
     void deleteAll(){
-        SQLiteDatabase db = MainActivity.deliveryAgentsDB.getWritableDatabase();
+        SQLiteDatabase db = WelcomeActivity.deliveryAgentsDB.getWritableDatabase();
         db.delete(TABLE_NAME, null, null);
     }
 }

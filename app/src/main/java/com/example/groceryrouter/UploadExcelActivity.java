@@ -207,7 +207,7 @@ public class UploadExcelActivity extends AppCompatActivity {
 
         Intent intent;
         if(c_max==3) {
-            DeliveryCoordinatesDB db = MainActivity.deliveryCoordinatesDB;
+            DeliveryCoordinatesDB db = WelcomeActivity.deliveryCoordinatesDB;
             intent = new Intent(UploadExcelActivity.this, CoordinateInputActivity.class);
             for(int i=0; i<Coordinates.size();i++)
             {
@@ -216,7 +216,7 @@ public class UploadExcelActivity extends AppCompatActivity {
             }
         }
         else {
-            DeliveryAgentsDB db = MainActivity.deliveryAgentsDB;
+            DeliveryAgentsDB db = WelcomeActivity.deliveryAgentsDB;
             intent = new Intent(UploadExcelActivity.this, DeliveryAgentActivity.class);
             for(int i=0; i<Coordinates.size();i++)
                 db.addData(Coordinates.get(i));
