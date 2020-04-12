@@ -3,6 +3,7 @@ package com.example.groceryrouter;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
+
 
 public class TSPOutputActivity extends AppCompatActivity implements TaskLoadedCallback, OnMapReadyCallback {
 
@@ -47,22 +49,47 @@ public class TSPOutputActivity extends AppCompatActivity implements TaskLoadedCa
         Cursor agentData = deliveryAgentsDB.showData();
 
         ArrayList<ArrayList<Double>> deliveryList = new ArrayList<>();
-        ArrayList<Double> agentList = new ArrayList<>();
+        //ArrayList<Double> agentList = new ArrayList<>();
+        ArrayList<String> deliveryCoordinates = new ArrayList<>();
+        ArrayList<String> deliveryAgents = new ArrayList<>();
 
-        while(deliveryData.moveToNext()){
+        while (deliveryData.moveToNext()) {
             ArrayList<Double> temp = new ArrayList<>();
             String latitude = deliveryData.getString(1);
             String longitude = deliveryData.getString(2);
             String demand = deliveryData.getString(3);
+            String name = deliveryData.getString(4);
             temp.add(Double.valueOf(latitude));
             temp.add(Double.valueOf(longitude));
             temp.add(Double.valueOf(demand));
-            deliveryList.add(temp);
+            deliveryCoordinates.add(latitude + " " + longitude + " " + demand + " " + name);
         }
 
-        while(agentData.moveToNext()){
-            agentList.add(Double.valueOf(agentData.getString(1)));
+        while (agentData.moveToNext()) {
+            deliveryAgents.add(agentData.getString(1)+agentData.getString(2));
         }
+
+        String csv_content = "lat_w,long_w,lat_d,long_d,cap_d,id_d,cap_v,id_v\n";
+        csv_content += (warehouseCoordinate[0]).split(" ")[0] + "," + warehouseCoordinate[0].split(" ")[1] + "," + deliveryCoordinates.get(0).split(" ")[0] + "," +
+                deliveryCoordinates.get(0).split(" ")[1] + "," + deliveryCoordinates.get(0).split(" ")[2] + "," + deliveryCoordinates.get(0).split(" ")[3] + ","
+                + deliveryAgents.get(0).split(" ")[0] + "," + deliveryAgents.get(0).split(" ")[1];
+
+        for (int i = 1; i < Math.max(deliveryAgents.size(), deliveryCoordinates.size()); i++) {
+            csv_content += (warehouseCoordinate[0]).split(" ")[0] + "," + warehouseCoordinate[0].split(" ")[1];
+            if (i < deliveryCoordinates.size())
+                csv_content += "," + deliveryCoordinates.get(0).split(" ")[0] + "," +
+                        deliveryCoordinates.get(0).split(" ")[1] + "," + deliveryCoordinates.get(0).split(" ")[2] + "," + deliveryCoordinates.get(0).split(" ")[3];
+            else csv_content += ",x,x,x,x";
+
+            if (i < deliveryAgents.size())
+                csv_content += "," + deliveryAgents.get(0).split(" ")[0] + "," + deliveryAgents.get(0).split(" ")[1];
+            else csv_content += ",x,x";
+
+
+        }
+        Log.d("csv_content", csv_content);
+
+
 
         // Find the route and location between each pair of locations
         locations = new ArrayList<>();
@@ -92,6 +119,7 @@ public class TSPOutputActivity extends AppCompatActivity implements TaskLoadedCa
         currentPolyLine = mMap.addPolyline((PolylineOptions) values[0]);
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -106,4 +134,5 @@ public class TSPOutputActivity extends AppCompatActivity implements TaskLoadedCa
             }
         }
     }
+
 }
