@@ -85,6 +85,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
                 field1.setText("");
                 field2.setText("");
                 field3.setText("");
+                field4.setText("");
                 field5.setText("");
             }
         }

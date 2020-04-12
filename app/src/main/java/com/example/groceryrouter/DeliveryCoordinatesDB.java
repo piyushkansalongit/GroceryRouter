@@ -18,7 +18,7 @@ public class DeliveryCoordinatesDB extends SQLiteOpenHelper {
     private static final String COL5 = "Label";
 
     DeliveryCoordinatesDB(@Nullable Context context) {
-        super(context, DATABASE_NAME, null ,1);
+        super(context, DATABASE_NAME, null ,3);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DeliveryCoordinatesDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 

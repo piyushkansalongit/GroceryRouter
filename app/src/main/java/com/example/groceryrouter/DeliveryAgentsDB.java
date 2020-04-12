@@ -16,7 +16,7 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
     public static final String COL3 = "Label";
 
     public DeliveryAgentsDB(@Nullable Context context) {
-        super(context, DATABASE_NAME, null ,1);
+        super(context, DATABASE_NAME, null ,3);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 

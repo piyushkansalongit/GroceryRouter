@@ -70,6 +70,7 @@ public class DeliveryAgentActivity extends AppCompatActivity {
             else {
                 toastMessage("Data Successfully inserted.");
                 field1.setText("");
+                field2.setText("");
                 field3.setText("");
             }
 
