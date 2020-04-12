@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/latitude"
-            android:inputType="number" />
+            android:inputType="number|text" />
 
         <EditText
             android:id="@+id/longitude_coordinate_warehouse"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/longitude"
-            android:inputType="number" />
+            android:inputType="number|text" />
         <Button
             android:id="@+id/set_coordinate_warehouse"
             android:layout_width="match_parent"

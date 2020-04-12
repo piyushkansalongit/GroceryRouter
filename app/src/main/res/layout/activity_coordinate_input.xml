@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/latitude"
-            android:inputType="number" />
+            android:inputType="number|text" />
 
         <EditText
             android:id="@+id/longitude_coordinate_input"
@@ -34,14 +34,15 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/longitude"
-            android:inputType="number" />
+            android:inputType="number|text" />
+
         <EditText
             android:id="@+id/demand_coordinate_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/demand"
-            android:inputType="number" />
+            android:inputType="number|text" />
 
         <EditText
             android:id="@+id/label_coordinate_input"
