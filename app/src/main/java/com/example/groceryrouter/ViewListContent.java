@@ -32,7 +32,12 @@ public class ViewListContent extends AppCompatActivity {
             Toast.makeText(ViewListContent.this, "The database is empty!", Toast.LENGTH_LONG).show();
         }else{
             while(data.moveToNext()){
-                deliveryEntry = new DeliveryEntry(data.getString(0), data.getString(1), data.getString(2), data.getString(3));
+                deliveryEntry = new DeliveryEntry(
+                        data.getString(0),
+                        data.getString(1),
+                        data.getString(2),
+                        data.getString(3),
+                        data.getString(4));
                 deliveryEntryList.add(deliveryEntry);
             }
             FourColumn_ListAdapter adapter = new FourColumn_ListAdapter(this, R.layout.list_adapter_view, deliveryEntryList);
@@ -42,7 +47,7 @@ public class ViewListContent extends AppCompatActivity {
 
         back = findViewById(R.id.back_list_view);
         back.setOnClickListener(view -> {
-            String Latitude, Longitude, Demand, ID;
+            String Latitude, Longitude, Demand, ID, Label;
             Bundle extras = getIntent().getExtras();
             if(extras!=null)
             {
@@ -50,14 +55,16 @@ public class ViewListContent extends AppCompatActivity {
                 Longitude = extras.getString("Longitude");
                 Demand = extras.getString("Demand");
                 ID = extras.getString("ID");
+                Label = extras.getString("Label");
             }else
-                Latitude = Longitude = Demand = ID = "";
+                Latitude = Longitude = Demand = ID = Label =  "";
 
             Intent intent = new Intent(ViewListContent.this, CoordinateInputActivity.class);
             intent.putExtra("Latitude", Latitude);
             intent.putExtra("Longitude", Longitude);
             intent.putExtra("Demand", Demand);
             intent.putExtra("ID", ID);
+            intent.putExtra("Label", Label);
             startActivity(intent);
         });
     }

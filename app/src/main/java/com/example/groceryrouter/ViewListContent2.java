@@ -32,7 +32,7 @@ public class ViewListContent2 extends AppCompatActivity {
             Toast.makeText(ViewListContent2.this, "The database is empty!", Toast.LENGTH_LONG).show();
         }else{
             while(data.moveToNext()){
-                agentEntry = new AgentEntry(data.getString(0), data.getString(1));
+                agentEntry = new AgentEntry(data.getString(0), data.getString(1), data.getString(2));
                 agentEntryList.add(agentEntry);
             }
             TwoColumn_ListAdapter adapter = new TwoColumn_ListAdapter(this, R.layout.list_adapter_view2, agentEntryList);
@@ -42,17 +42,19 @@ public class ViewListContent2 extends AppCompatActivity {
 
         back = findViewById(R.id.back_list_view2);
         back.setOnClickListener(view -> {
-            String Capacity, ID;
+            String Capacity, ID, Label;
             Bundle extras = getIntent().getExtras();
             if(extras!=null)
             {
                 Capacity = extras.getString("Capacity");
                 ID = extras.getString("ID");
+                Label = extras.getString("Label");
             }else
-                Capacity = ID = "";
+                Capacity = ID = Label = "";
             Intent intent = new Intent(ViewListContent2.this, DeliveryAgentActivity.class);
             intent.putExtra("Capacity", Capacity);
             intent.putExtra("ID", ID);
+            intent.putExtra("Label", Label);
             startActivity(intent);
         });
     }

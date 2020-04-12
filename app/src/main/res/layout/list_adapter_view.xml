@@ -9,29 +9,34 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="13"
+        android:layout_weight="12"
         android:textSize="15sp"
         android:id="@+id/idCol" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="29"
+        android:layout_weight="22"
         android:textSize="15sp"
         android:id="@+id/latitudeCol" />
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="29"
+        android:layout_weight="22"
         android:textSize="15sp"
         android:id="@+id/longitudeCol" />
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="29"
+        android:layout_weight="22"
         android:textSize="15sp"
         android:id="@+id/demandCol"/>
-
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="22"
+        android:textSize="15sp"
+        android:id="@+id/labelCol" />
 
 
 </LinearLayout>

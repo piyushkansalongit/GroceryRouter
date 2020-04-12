@@ -5,13 +5,15 @@ public class DeliveryEntry {
     private String Latitude;
     private String Longitude;
     private String Demand;
+    private String Label;
 
-    public DeliveryEntry(String ID, String Latitude, String Longitude, String Demand)
+    public DeliveryEntry(String ID, String Latitude, String Longitude, String Demand, String Label)
     {
         this.ID = ID;
         this.Latitude = Latitude;
         this.Longitude = Longitude;
         this.Demand= Demand;
+        this.Label = Label;
     }
 
     public String getID() {
@@ -28,5 +30,9 @@ public class DeliveryEntry {
 
     public String getDemand() {
         return Demand;
+    }
+
+    public String getLabel(){
+        return Label;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,12 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CoordinateInputActivity extends AppCompatActivity {
 
     // Variable Declarations
-    String Latitude, Longitude, Demand;
-    String ID;
-    EditText field1;
-    EditText field2;
-    EditText field3;
-    EditText field4;
+    String ID, Latitude, Longitude, Demand, Label;
+    EditText field1, field2, field3, field4, field5;
     Button addCoordinate, updateCoordinate, deleteCoordinate, viewInputs, clearInputs, done, googleMap, importFromExcelButton;
     DeliveryCoordinatesDB db;
 
@@ -36,7 +33,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         field2 = findViewById(R.id.longitude_coordinate_input);
         field3 = findViewById(R.id.demand_coordinate_input);
         field4 = findViewById(R.id.id_coordinate_input);
-
+        field5 = findViewById(R.id.label_coordinate_input);
 
         //Database
         db =  WelcomeActivity.deliveryCoordinatesDB;
@@ -68,6 +65,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
             field2.setText(extras.getString("Longitude"));
             field3.setText(extras.getString("Demand"));
             field4.setText(extras.getString("ID"));
+            field5.setText(extras.getString("Label"));
         }
     }
 
@@ -75,10 +73,11 @@ public class CoordinateInputActivity extends AppCompatActivity {
         Latitude = field1.getText().toString();
         Longitude = field2.getText().toString();
         Demand = field3.getText().toString();
+        Label = field5.getText().toString();
         if(Latitude.equals("") || Longitude.equals("") || Demand.equals(""))
             toastMessage("Please fill all the fields correctly");
         else{
-            boolean retFlag = db.addData(Latitude, Longitude, Demand);
+            boolean retFlag = db.addData(Latitude, Longitude, Demand, Label);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
             else {
@@ -86,7 +85,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
                 field1.setText("");
                 field2.setText("");
                 field3.setText("");
-                field4.setText("");
+                field5.setText("");
             }
         }
     }
@@ -96,12 +95,13 @@ public class CoordinateInputActivity extends AppCompatActivity {
         Longitude = field2.getText().toString();
         Demand = field3.getText().toString();
         ID = field4.getText().toString();
+        Label = field5.getText().toString();
         if(Latitude.equals("") || Longitude.equals("") || Demand.equals(""))
             toastMessage("Please fill all the fields correctly");
         else if(ID.equals(""))
             toastMessage("You must enter an ID to update");
         else{
-            boolean retFlag = db.updateData(ID, Latitude, Longitude, Demand);
+            boolean retFlag = db.updateData(ID, Latitude, Longitude, Demand, Label);
             if(!retFlag)
                 toastMessage("Something went wrong! Please try again.");
             else {
@@ -110,6 +110,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
                 field2.setText("");
                 field3.setText("");
                 field4.setText("");
+                field5.setText("");
             }
 
         }
@@ -146,6 +147,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
         displayIntent.putExtra("Longitude", field2.getText().toString());
         displayIntent.putExtra("Demand", field3.getText().toString());
         displayIntent.putExtra("ID", field4.getText().toString());
+        displayIntent.putExtra("Label", field5.getText().toString());
         startActivity(displayIntent);
     }
 
@@ -167,7 +169,7 @@ public class CoordinateInputActivity extends AppCompatActivity {
     private void importHandle()
     {
         Intent uploadExcelIntent = new Intent(CoordinateInputActivity.this,UploadExcelActivity.class);
-        uploadExcelIntent.putExtra("c_max","3");
+        uploadExcelIntent.putExtra("c_max","4");
         startActivity(uploadExcelIntent);
     }
     // Helper Functions

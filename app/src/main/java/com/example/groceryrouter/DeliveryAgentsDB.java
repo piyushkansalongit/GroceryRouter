@@ -13,6 +13,7 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "deliveryAgents";
     public static final String COL1 = "ID";
     public static final String COL2 = "Capacity";
+    public static final String COL3 = "Label";
 
     public DeliveryAgentsDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null ,1);
@@ -21,7 +22,7 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                " Capacity STRING)";
+                " Capacity STRING, Label String)";
         db.execSQL(createTable);
     }
 
@@ -31,20 +32,22 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String Capacity)
+    public boolean addData(String Capacity, String Label)
     {
         SQLiteDatabase db = WelcomeActivity.deliveryAgentsDB.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, Capacity);
+        contentValues.put(COL3, Label);
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
     }
-    boolean updateData(String ID, String Capacity)
+    boolean updateData(String ID, String Capacity, String Label)
     {
         SQLiteDatabase db = WelcomeActivity.deliveryAgentsDB.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL1, ID);
         contentValues.put(COL2, Capacity);
+        contentValues.put(COL3, Label);
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{ID});
         return true;
     }
