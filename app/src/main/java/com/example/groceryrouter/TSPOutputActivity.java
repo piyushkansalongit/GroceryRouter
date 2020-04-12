@@ -66,7 +66,7 @@ public class TSPOutputActivity extends AppCompatActivity implements TaskLoadedCa
         }
 
         while (agentData.moveToNext()) {
-            deliveryAgents.add(agentData.getString(1)+agentData.getString(2));
+            deliveryAgents.add(agentData.getString(1)+" "+agentData.getString(2));
         }
 
         String csv_content = "lat_w,long_w,lat_d,long_d,cap_d,id_d,cap_v,id_v\n";

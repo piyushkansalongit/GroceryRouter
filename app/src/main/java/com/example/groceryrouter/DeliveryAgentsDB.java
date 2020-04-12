@@ -65,6 +65,7 @@ public class DeliveryAgentsDB extends SQLiteOpenHelper {
     void deleteAll(){
         SQLiteDatabase db = WelcomeActivity.deliveryAgentsDB.getWritableDatabase();
         db.delete(TABLE_NAME, null, null);
+        db.execSQL("delete from sqlite_sequence where name="+"'"+TABLE_NAME+"'");
     }
 }
 
