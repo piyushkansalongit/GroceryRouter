@@ -15,6 +15,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
@@ -69,12 +71,17 @@ public class ExampleInstrumentedTest {
 
             Log.d("xx","xx");
             Log.d("file_content",text.toString());
-            httpclient client = new httpclient();
-            client.getResponse(myfile.getAbsolutePath());
+            httpclient client = new httpclient(null);
+            client.execute(myfile.getAbsolutePath()).get();
+
         }
         catch (IOException e)
         {
             Log.d("err_test","Unable to create file");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
     }

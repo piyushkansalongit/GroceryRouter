@@ -3,8 +3,10 @@ package com.example.groceryrouter;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -19,6 +21,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtil;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * This example shows how to upload files using POST requests
@@ -27,7 +33,13 @@ import org.apache.commons.io.IOUtil;
  * on https://javatutorial.net/java-file-upload-rest-service
  * @author javatutorial.net
  */
-public class httpclient {
+public class httpclient extends AsyncTask<String, Void, String> {
+    private Activity context;
+
+    public httpclient(Activity myActivity)
+    {
+        context = myActivity;
+    }
     public static String getFileContent(
             FileInputStream fis,
             String          encoding ) throws IOException
@@ -45,9 +57,12 @@ public class httpclient {
         }
     }
 
-    public static void getResponse(String name) {
+
+    @Override
+    protected String doInBackground(String[] name) {
         try {
-            String sourceFileUri = name;
+            String sourceFileUri = name[0];
+            Log.d("file_name_in_httpclien",name[0]);
             HttpURLConnection conn = null;
             DataOutputStream dos = null;
             String lineEnd = "\r\n";
@@ -57,9 +72,11 @@ public class httpclient {
             byte[] buffer;
             int maxBufferSize = 1 * 1024 * 1024;
             File sourceFile = new File(sourceFileUri);
+            if (!sourceFile.isFile())
+                Log.d("file_found","No");
             if (sourceFile.isFile()) {
                 try {
-                    String upLoadServerUri = "https://vehicleroutingproblem.herokuapp.com//handleUpload";
+                    String upLoadServerUri = "https://vehicleroutingproblem.herokuapp.com/handleUpload";
 
                     // open a URL connection to the Servlet
                     FileInputStream fileInputStream = new FileInputStream(
@@ -78,15 +95,16 @@ public class httpclient {
                     conn.setRequestProperty("Content-Type",
                             "multipart/form-data;boundary=" + boundary);
                     conn.setRequestProperty("datax", sourceFileUri);
+                    Log.d("where","line 98");
 
                     dos = new DataOutputStream(conn.getOutputStream());
-
+                    Log.d("where","line 101");
                     dos.writeBytes(twoHyphens + boundary + lineEnd);
                     dos.writeBytes("Content-Disposition: form-data; name=\"datax\";filename=\""
                             + sourceFileUri + "\"" + lineEnd);
 
                     dos.writeBytes(lineEnd);
-
+                    Log.d("where","line 107");
                     // create a buffer of maximum size
                     bytesAvailable = fileInputStream.available();
 
@@ -95,7 +113,7 @@ public class httpclient {
 
                     // read file and write it into form...
                     bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
+                    Log.d("where","line 116");
                     while (bytesRead > 0) {
 
                         dos.write(buffer, 0, bufferSize);
@@ -106,45 +124,43 @@ public class httpclient {
                                 bufferSize);
 
                     }
-
+                    Log.d("where","line 127");
                     // send multipart form data necesssary after file
                     // data...
                     dos.writeBytes(lineEnd);
                     dos.writeBytes(twoHyphens + boundary + twoHyphens
                             + lineEnd);
-
+                    Log.d("where","line 133");
                     // Responses from the server (code and message)
                     int serverResponseCode = conn.getResponseCode();
                     String serverResponseMessage = conn
                             .getResponseMessage();
                     Log.d("message",serverResponseMessage);
                     Log.d("response-code",Integer.toString(serverResponseCode));
+                    Log.d("where","line 140");
+                    StringWriter writer = new StringWriter();
                     try {
                         InputStream in = new BufferedInputStream(conn.getInputStream());
-                        StringWriter writer = new StringWriter();
+
                         IOUtil.copy(in, writer, "UTF-8");
-                        Log.d("Resonse",writer.toString());
+                        Log.d("Response",writer.toString());
+                        fileInputStream.close();
+                        dos.flush();
+                        dos.close();
+                        return writer.toString();
+
                     } finally {
                         conn.disconnect();
                     }
 
-                    if (serverResponseCode == 200) {
 
-                        // messageText.setText(msg);
-                        //Toast.makeText(ctx, "File Upload Complete.",
-                        //      Toast.LENGTH_SHORT).show();
-
-                        // recursiveDelete(mDirectory1);
-
-                    }
 
                     // close the streams //
-                    fileInputStream.close();
-                    dos.flush();
-                    dos.close();
+
 
                 } catch (Exception e) {
                     // dialog.dismiss();
+                    Log.d("err","here");
                     e.printStackTrace();
                 }
                 // dialog.dismiss();
@@ -153,11 +169,22 @@ public class httpclient {
             // dialog.dismiss();
             ex.printStackTrace();
         }
-        return ;
 
 
+        return "An error has occured";
     }
 
+
+
+
+    public void onPostExecute(String result) {
+
+        ProgressBar progressBar = (ProgressBar) context.findViewById(R.id.progressBar);
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
+
+        ((TextView)context.findViewById(R.id.outputroute)).setText(result);
+
+    }
 
 
 
