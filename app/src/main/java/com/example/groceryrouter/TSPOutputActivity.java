@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,8 +52,8 @@ public class TSPOutputActivity extends AppCompatActivity{
         deliveryAgentsDB = WelcomeActivity.deliveryAgentsDB;
         //done = findViewById(R.id.output_done);
         //done.setOnClickListener(view -> {
-          //  Intent intent = new Intent(TSPOutputActivity.this, MainActivity.class);
-           // startActivity(intent);
+        //  Intent intent = new Intent(TSPOutputActivity.this, MainActivity.class);
+        // startActivity(intent);
         //});
         // Importing the data from databases to array lists
         Cursor deliveryData = deliveryCoordinatesDB.showData();
@@ -76,29 +77,29 @@ public class TSPOutputActivity extends AppCompatActivity{
         }
 
         while (agentData.moveToNext()) {
-            deliveryAgents.add(agentData.getString(1)+" "+agentData.getString(2));
+            deliveryAgents.add(agentData.getString(1) + " " + agentData.getString(2));
         }
-
+        try {
         String csv_content = "lat_w,long_w,lat_d,long_d,cap_d,id_d,cap_v,id_v\n";
-        csv_content += (warehouseCoordinate[0]) + "," + warehouseCoordinate[1] + "," + deliveryCoordinates.get(0).split(" ",4)[0] + "," +
-                deliveryCoordinates.get(0).split(" ",4)[1] + "," + deliveryCoordinates.get(0).split(" ",4)[2] + "," + deliveryCoordinates.get(0).split(" ",4)[3] + ","
-                + deliveryAgents.get(0).split(" ",2)[0] + "," + deliveryAgents.get(0).split(" ",2)[1]+'\n';
+        csv_content += (warehouseCoordinate[0]) + "," + warehouseCoordinate[1] + "," + deliveryCoordinates.get(0).split(" ", 4)[0] + "," +
+                deliveryCoordinates.get(0).split(" ", 4)[1] + "," + deliveryCoordinates.get(0).split(" ", 4)[2] + "," + deliveryCoordinates.get(0).split(" ", 4)[3] + ","
+                + deliveryAgents.get(0).split(" ", 2)[0] + "," + deliveryAgents.get(0).split(" ", 2)[1] + '\n';
 
         for (int i = 1; i < Math.max(deliveryAgents.size(), deliveryCoordinates.size()); i++) {
             csv_content += (warehouseCoordinate[0]) + "," + warehouseCoordinate[1];
             if (i < deliveryCoordinates.size())
-                csv_content += "," + deliveryCoordinates.get(i).split(" ",4)[0] + "," +
-                        deliveryCoordinates.get(i).split(" ",4)[1] + "," + deliveryCoordinates.get(i).split(" ",4)[2] + "," + deliveryCoordinates.get(i).split(" ",4)[3];
+                csv_content += "," + deliveryCoordinates.get(i).split(" ", 4)[0] + "," +
+                        deliveryCoordinates.get(i).split(" ", 4)[1] + "," + deliveryCoordinates.get(i).split(" ", 4)[2] + "," + deliveryCoordinates.get(i).split(" ", 4)[3];
             else csv_content += ",x,x,x,x";
 
             if (i < deliveryAgents.size())
-                csv_content += "," + deliveryAgents.get(i).split(" ",2)[0] + "," + deliveryAgents.get(i).split(" ",2)[1];
+                csv_content += "," + deliveryAgents.get(i).split(" ", 2)[0] + "," + deliveryAgents.get(i).split(" ", 2)[1];
             else csv_content += ",x,x";
-            csv_content+='\n';
+            csv_content += '\n';
 
         }
-        Log.d("csv_content", csv_content);
-        try {
+
+
             File myfile = File.createTempFile("sample.csv",null,getApplicationContext().getCacheDir());
             FileOutputStream fOut = new FileOutputStream(myfile);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
@@ -131,10 +132,16 @@ public class TSPOutputActivity extends AppCompatActivity{
         }
         catch (IOException e)
         {
+            ProgressBar progressBar1 = (ProgressBar) this.findViewById(R.id.progressBar);
+            progressBar1.setVisibility(ProgressBar.INVISIBLE);
+            ((TextView)this.findViewById(R.id.outputroute)).setText("Make Sure the data is complete");
             Log.d("err_test","Unable to create file");
         }
         catch (Exception e)
         {
+            ProgressBar progressBar1 = (ProgressBar) this.findViewById(R.id.progressBar);
+            progressBar1.setVisibility(ProgressBar.INVISIBLE);
+            ((TextView)this.findViewById(R.id.outputroute)).setText("Make Sure the data is complete");
             Log.d("error in retrieiving","Please try again");
         }
 
